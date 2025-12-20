@@ -16,8 +16,6 @@
             --tron-green: #00ff88;
             --tron-red: #ff3366;
             --tron-orange: #ff6600;
-            --tron-pink: #ff00ff;
-            --tron-yellow: #ffcc00;
             --bg-dark: #0a0a0f;
             --bg-card: rgba(0, 20, 40, 0.6);
             --text-primary: #ffffff;
@@ -130,7 +128,62 @@
             50% { border-color: rgba(0, 212, 255, 0.6); }
         }
 
-        /* Dropdown Modal */
+        /* Data Available Indicator */
+        .data-status {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            margin-top: 10px;
+            padding: 5px 15px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .data-status.available {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--tron-green);
+        }
+
+        .data-status.unavailable {
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            color: var(--tron-red);
+        }
+
+        /* No Data Message */
+        .no-data-message {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .no-data-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-data-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--tron-red);
+            margin-bottom: 10px;
+        }
+
+        .no-data-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .no-data-hint {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(136, 204, 255, 0.6);
+        }
+
+        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -207,6 +260,19 @@
         .selector-dropdown option {
             background: var(--bg-dark);
             color: var(--text-primary);
+        }
+
+        .modal-info {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-info strong {
+            color: var(--tron-cyan);
         }
 
         .modal-buttons {
@@ -315,6 +381,15 @@
             transform: translateY(-5px);
         }
 
+        .kpi-card.empty {
+            opacity: 0.5;
+        }
+
+        .kpi-card.empty:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
         .kpi-label {
             font-family: 'Orbitron', monospace;
             font-size: 0.7rem;
@@ -334,6 +409,7 @@
 
         .kpi-value.negative { color: var(--tron-red); text-shadow: 0 0 20px rgba(255, 51, 102, 0.5); }
         .kpi-value.positive { color: var(--tron-green); text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+        .kpi-value.empty { color: var(--text-secondary); opacity: 0.5; }
 
         /* Charts Grid */
         .charts-grid {
@@ -370,6 +446,7 @@
         /* Pie Chart */
         .pie-chart-container { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
         .pie-chart { width: 180px; height: 180px; border-radius: 50%; flex-shrink: 0; }
+        .pie-chart.empty { background: rgba(136, 204, 255, 0.1); }
         .pie-legend { flex: 1; min-width: 150px; }
         .legend-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 0.85rem; }
         .legend-color { width: 12px; height: 12px; margin-right: 10px; border-radius: 2px; }
@@ -439,6 +516,10 @@
         <div class="modal-content">
             <h3 class="modal-title" id="modalTitle">Select Period</h3>
             
+            <div class="modal-info">
+                <strong>Data Available:</strong> <span id="availableDataInfo">December 2025</span>
+            </div>
+            
             <!-- Monthly Selector -->
             <div id="monthlySelector">
                 <div class="selector-group">
@@ -461,6 +542,7 @@
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
                     <select class="selector-dropdown" id="yearSelect">
+                        <option value="2023">2023</option>
                         <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
@@ -483,6 +565,7 @@
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
                     <select class="selector-dropdown" id="quarterYearSelect">
+                        <option value="2023">2023</option>
                         <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
@@ -496,6 +579,7 @@
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
                     <select class="selector-dropdown" id="annualYearSelect">
+                        <option value="2023">2023</option>
                         <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
@@ -519,6 +603,7 @@
                 <span class="period-text" id="currentPeriod">Loading...</span>
                 <span class="period-icon">▼</span>
             </div>
+            <div class="data-status available" id="dataStatus">DATA AVAILABLE</div>
         </header>
 
         <nav class="nav-tabs">
@@ -539,37 +624,47 @@
         </div>
 
         <main id="content" class="hidden">
-            <div id="monthly-view" class="view">
-                <div class="kpi-grid" id="monthly-kpis"></div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Revenue by Product</h3><div class="pie-chart-container" id="product-pie"></div></div>
-                    <div class="chart-card"><h3 class="chart-title">Revenue by Customer</h3><div class="pie-chart-container" id="customer-pie"></div></div>
-                </div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Profit by Product</h3><div class="bar-chart" id="profit-bars"></div></div>
-                    <div class="chart-card"><h3 class="chart-title">Product Performance</h3><div style="overflow-x: auto;"><table class="data-table" id="product-table"></table></div></div>
-                </div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Customer Performance</h3><div style="overflow-x: auto;"><table class="data-table" id="customer-table"></table></div></div>
-                </div>
+            <!-- No Data Message -->
+            <div id="noDataMessage" class="no-data-message hidden">
+                <div class="no-data-icon">📊</div>
+                <div class="no-data-title">NO DATA AVAILABLE</div>
+                <div class="no-data-text">No data exists for the selected period.</div>
+                <div class="no-data-hint" id="noDataHint">Data is available for: December 2025</div>
             </div>
 
-            <div id="quarterly-view" class="view hidden">
-                <div class="kpi-grid" id="quarterly-kpis"></div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Revenue by Product (Quarter)</h3><div class="pie-chart-container" id="quarterly-product-pie"></div></div>
-                    <div class="chart-card"><h3 class="chart-title">Quarterly Revenue Trend</h3><div class="bar-chart" id="quarterly-trend-bars"></div></div>
+            <div id="dataContent">
+                <div id="monthly-view" class="view">
+                    <div class="kpi-grid" id="monthly-kpis"></div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Revenue by Product</h3><div class="pie-chart-container" id="product-pie"></div></div>
+                        <div class="chart-card"><h3 class="chart-title">Revenue by Customer</h3><div class="pie-chart-container" id="customer-pie"></div></div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Profit by Product</h3><div class="bar-chart" id="profit-bars"></div></div>
+                        <div class="chart-card"><h3 class="chart-title">Product Performance</h3><div style="overflow-x: auto;"><table class="data-table" id="product-table"></table></div></div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Customer Performance</h3><div style="overflow-x: auto;"><table class="data-table" id="customer-table"></table></div></div>
+                    </div>
                 </div>
-            </div>
 
-            <div id="annual-view" class="view hidden">
-                <div class="kpi-grid" id="annual-kpis"></div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Revenue by Product (Year)</h3><div class="pie-chart-container" id="annual-product-pie"></div></div>
-                    <div class="chart-card"><h3 class="chart-title">Monthly Revenue</h3><div class="bar-chart" id="monthly-revenue-bars"></div></div>
+                <div id="quarterly-view" class="view hidden">
+                    <div class="kpi-grid" id="quarterly-kpis"></div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Revenue by Product (Quarter)</h3><div class="pie-chart-container" id="quarterly-product-pie"></div></div>
+                        <div class="chart-card"><h3 class="chart-title">Quarterly Revenue Trend</h3><div class="bar-chart" id="quarterly-trend-bars"></div></div>
+                    </div>
                 </div>
-                <div class="charts-grid">
-                    <div class="chart-card"><h3 class="chart-title">Monthly Profit</h3><div class="bar-chart" id="monthly-profit-bars"></div></div>
+
+                <div id="annual-view" class="view hidden">
+                    <div class="kpi-grid" id="annual-kpis"></div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Revenue by Product (Year)</h3><div class="pie-chart-container" id="annual-product-pie"></div></div>
+                        <div class="chart-card"><h3 class="chart-title">Monthly Revenue</h3><div class="bar-chart" id="monthly-revenue-bars"></div></div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Monthly Profit</h3><div class="bar-chart" id="monthly-profit-bars"></div></div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -603,7 +698,7 @@
         // STATE
         // ============================================
         let dashboardData = { config: {}, monthly: {}, quarterly: {}, annual: {} };
-        let rawData = { monthly: null, quarterly: null, annual: null };
+        let loadedPeriod = { monthly: {}, quarterly: {}, annual: {} };
         let currentView = 'monthly';
         let selectedPeriod = {
             monthly: { month: 'December', year: 2025 },
@@ -656,6 +751,58 @@
         }
 
         // ============================================
+        // PERIOD MATCHING
+        // ============================================
+        function isMonthlyPeriodMatch() {
+            return selectedPeriod.monthly.month === loadedPeriod.monthly.month &&
+                   selectedPeriod.monthly.year === loadedPeriod.monthly.year;
+        }
+
+        function isQuarterlyPeriodMatch() {
+            return selectedPeriod.quarterly.quarter === loadedPeriod.quarterly.quarter &&
+                   selectedPeriod.quarterly.year === loadedPeriod.quarterly.year;
+        }
+
+        function isAnnualPeriodMatch() {
+            return selectedPeriod.annual.year === loadedPeriod.annual.year;
+        }
+
+        function isPeriodMatch() {
+            if (currentView === 'monthly') return isMonthlyPeriodMatch();
+            if (currentView === 'quarterly') return isQuarterlyPeriodMatch();
+            return isAnnualPeriodMatch();
+        }
+
+        function updateDataStatus() {
+            const status = document.getElementById('dataStatus');
+            const noDataMsg = document.getElementById('noDataMessage');
+            const dataContent = document.getElementById('dataContent');
+            const noDataHint = document.getElementById('noDataHint');
+            
+            let availableText = '';
+            if (currentView === 'monthly') {
+                availableText = `${loadedPeriod.monthly.month} ${loadedPeriod.monthly.year}`;
+            } else if (currentView === 'quarterly') {
+                availableText = `${loadedPeriod.quarterly.quarter} ${loadedPeriod.quarterly.year}`;
+            } else {
+                availableText = `Year ${loadedPeriod.annual.year}`;
+            }
+            
+            if (isPeriodMatch()) {
+                status.textContent = 'DATA AVAILABLE';
+                status.className = 'data-status available';
+                noDataMsg.classList.add('hidden');
+                dataContent.classList.remove('hidden');
+            } else {
+                status.textContent = 'NO DATA FOR SELECTED PERIOD';
+                status.className = 'data-status unavailable';
+                noDataMsg.classList.remove('hidden');
+                dataContent.classList.add('hidden');
+                noDataHint.textContent = `Data is available for: ${availableText}`;
+            }
+        }
+
+        // ============================================
         // MODAL FUNCTIONS
         // ============================================
         function openModal() {
@@ -664,26 +811,28 @@
             const quarterlySelector = document.getElementById('quarterlySelector');
             const annualSelector = document.getElementById('annualSelector');
             const modalTitle = document.getElementById('modalTitle');
+            const availableInfo = document.getElementById('availableDataInfo');
             
-            // Hide all selectors first
             monthlySelector.classList.add('hidden');
             quarterlySelector.classList.add('hidden');
             annualSelector.classList.add('hidden');
             
-            // Show appropriate selector based on current view
             if (currentView === 'monthly') {
                 monthlySelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Month & Year';
+                availableInfo.textContent = `${loadedPeriod.monthly.month} ${loadedPeriod.monthly.year}`;
                 document.getElementById('monthSelect').value = selectedPeriod.monthly.month;
                 document.getElementById('yearSelect').value = selectedPeriod.monthly.year;
             } else if (currentView === 'quarterly') {
                 quarterlySelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Quarter & Year';
+                availableInfo.textContent = `${loadedPeriod.quarterly.quarter} ${loadedPeriod.quarterly.year}`;
                 document.getElementById('quarterSelect').value = selectedPeriod.quarterly.quarter;
                 document.getElementById('quarterYearSelect').value = selectedPeriod.quarterly.year;
             } else {
                 annualSelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Year';
+                availableInfo.textContent = `Year ${loadedPeriod.annual.year}`;
                 document.getElementById('annualYearSelect').value = selectedPeriod.annual.year;
             }
             
@@ -698,18 +847,15 @@
             if (currentView === 'monthly') {
                 selectedPeriod.monthly.month = document.getElementById('monthSelect').value;
                 selectedPeriod.monthly.year = parseInt(document.getElementById('yearSelect').value);
-                updatePeriodDisplay();
-                renderMonthlyView();
             } else if (currentView === 'quarterly') {
                 selectedPeriod.quarterly.quarter = document.getElementById('quarterSelect').value;
                 selectedPeriod.quarterly.year = parseInt(document.getElementById('quarterYearSelect').value);
-                updatePeriodDisplay();
-                renderQuarterlyView();
             } else {
                 selectedPeriod.annual.year = parseInt(document.getElementById('annualYearSelect').value);
-                updatePeriodDisplay();
-                renderAnnualView();
             }
+            
+            updatePeriodDisplay();
+            updateDataStatus();
             closeModal();
         }
 
@@ -752,12 +898,11 @@
                 totalRevenue: data[7] ? parseNumber(data[7][0]) : 0,
                 totalShipments: data[7] ? parseNumber(data[7][2]) : 0,
                 totalProfit: data[7] ? parseNumber(data[7][4]) : 0,
-                avgMargin: data[7] ? parsePercent(data[7][6]) : 0, // Already a percentage, don't multiply
+                avgMargin: data[7] ? parsePercent(data[7][6]) : 0,
                 products: [],
                 customers: []
             };
 
-            // Products
             for (let i = 10; i < 25; i++) {
                 if (data[i] && data[i][0] && isValidProduct(data[i][0]) && parseNumber(data[i][1]) > 0) {
                     result.products.push({
@@ -771,7 +916,6 @@
                 }
             }
 
-            // Customers
             for (let i = 20; i < 40; i++) {
                 if (data[i] && data[i][0] && isValidCustomer(data[i][0]) && parseNumber(data[i][1]) > 0) {
                     result.customers.push({
@@ -876,7 +1020,10 @@
             const validData = data.filter(d => (d[valueKey] || 0) > 0);
             const total = validData.reduce((sum, d) => sum + (d[valueKey] || 0), 0);
             
-            if (total === 0) { container.innerHTML = '<p style="color: var(--text-secondary);">No data available</p>'; return; }
+            if (total === 0) { 
+                container.innerHTML = '<div class="pie-chart empty"></div><div class="pie-legend"><p style="color: var(--text-secondary);">No data available</p></div>'; 
+                return; 
+            }
 
             let gradientParts = [], currentAngle = 0;
             validData.forEach((item, i) => {
@@ -982,7 +1129,19 @@
                     document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
                     document.getElementById(`${currentView}-view`).classList.remove('hidden');
                     
+                    // Reset selected period to match loaded data when switching views
+                    if (currentView === 'monthly') {
+                        selectedPeriod.monthly.month = loadedPeriod.monthly.month;
+                        selectedPeriod.monthly.year = loadedPeriod.monthly.year;
+                    } else if (currentView === 'quarterly') {
+                        selectedPeriod.quarterly.quarter = loadedPeriod.quarterly.quarter;
+                        selectedPeriod.quarterly.year = loadedPeriod.quarterly.year;
+                    } else {
+                        selectedPeriod.annual.year = loadedPeriod.annual.year;
+                    }
+                    
                     updatePeriodDisplay();
+                    updateDataStatus();
                     
                     if (currentView === 'monthly') renderMonthlyView();
                     else if (currentView === 'quarterly') renderQuarterlyView();
@@ -1022,24 +1181,31 @@
                     fetchSheet(CONFIG.sheets.annualSummary)
                 ]);
 
-                rawData = { monthly: monthlyData, quarterly: quarterlyData, annual: annualData };
-                
                 dashboardData.config = processConfigData(configData);
                 dashboardData.monthly = processMonthlyData(monthlyData);
                 dashboardData.quarterly = processQuarterlyData(quarterlyData);
                 dashboardData.annual = processAnnualData(annualData);
 
-                // Set initial period from config
-                selectedPeriod.monthly.month = dashboardData.config.currentMonth;
-                selectedPeriod.monthly.year = dashboardData.config.currentYear;
-                selectedPeriod.quarterly.year = dashboardData.config.currentYear;
-                selectedPeriod.annual.year = dashboardData.config.currentYear;
+                // Store what period the data is actually for
+                loadedPeriod.monthly = {
+                    month: dashboardData.monthly.selectedMonth,
+                    year: dashboardData.monthly.selectedYear
+                };
+                loadedPeriod.quarterly = {
+                    quarter: dashboardData.quarterly.selectedQuarter,
+                    year: dashboardData.quarterly.selectedYear
+                };
+                loadedPeriod.annual = {
+                    year: dashboardData.annual.selectedYear
+                };
 
-                // Determine current quarter
-                const monthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(dashboardData.config.currentMonth);
-                selectedPeriod.quarterly.quarter = 'Q' + (Math.floor(monthIndex / 3) + 1);
+                // Set selected period to match loaded data
+                selectedPeriod.monthly = { ...loadedPeriod.monthly };
+                selectedPeriod.quarterly = { ...loadedPeriod.quarterly };
+                selectedPeriod.annual = { ...loadedPeriod.annual };
 
                 updatePeriodDisplay();
+                updateDataStatus();
                 document.getElementById('lastUpdated').textContent = `Last Updated: ${dashboardData.config.lastUpdated}`;
 
                 renderMonthlyView();
@@ -1063,7 +1229,6 @@
             loadData();
         });
 
-        // Close modal on overlay click
         document.getElementById('periodModal').addEventListener('click', (e) => {
             if (e.target.id === 'periodModal') closeModal();
         });
