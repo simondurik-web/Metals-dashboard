@@ -60,7 +60,6 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             text-align: center;
             padding: 30px 20px;
@@ -93,7 +92,6 @@
             text-transform: uppercase;
         }
 
-        /* Period Selector */
         .period-selector {
             display: inline-flex;
             align-items: center;
@@ -118,17 +116,13 @@
             color: var(--tron-cyan);
         }
 
-        .period-icon {
-            color: var(--tron-cyan);
-            font-size: 0.8rem;
-        }
+        .period-icon { color: var(--tron-cyan); font-size: 0.8rem; }
 
         @keyframes borderPulse {
             0%, 100% { border-color: rgba(0, 212, 255, 0.3); }
             50% { border-color: rgba(0, 212, 255, 0.6); }
         }
 
-        /* Data Available Indicator */
         .data-status {
             font-family: 'Orbitron', monospace;
             font-size: 0.7rem;
@@ -150,7 +144,6 @@
             color: var(--tron-red);
         }
 
-        /* No Data Message */
         .no-data-message {
             text-align: center;
             padding: 60px 20px;
@@ -159,29 +152,10 @@
             margin-bottom: 40px;
         }
 
-        .no-data-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .no-data-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            color: var(--tron-red);
-            margin-bottom: 10px;
-        }
-
-        .no-data-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .no-data-hint {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: rgba(136, 204, 255, 0.6);
-        }
+        .no-data-icon { font-size: 3rem; margin-bottom: 20px; opacity: 0.5; }
+        .no-data-title { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: var(--tron-red); margin-bottom: 10px; }
+        .no-data-text { color: var(--text-secondary); font-size: 0.9rem; }
+        .no-data-hint { margin-top: 15px; font-size: 0.8rem; color: rgba(136, 204, 255, 0.6); }
 
         /* Modal */
         .modal-overlay {
@@ -197,24 +171,20 @@
             transition: all 0.3s ease;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-content {
             background: var(--bg-dark);
             border: 1px solid var(--tron-cyan);
             padding: 30px;
             min-width: 300px;
+            max-width: 400px;
             box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
             transform: scale(0.9);
             transition: transform 0.3s ease;
         }
 
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
 
         .modal-title {
             font-family: 'Orbitron', monospace;
@@ -226,9 +196,7 @@
             letter-spacing: 0.1em;
         }
 
-        .selector-group {
-            margin-bottom: 20px;
-        }
+        .selector-group { margin-bottom: 20px; }
 
         .selector-label {
             font-family: 'Orbitron', monospace;
@@ -257,29 +225,29 @@
             box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
         }
 
-        .selector-dropdown option {
-            background: var(--bg-dark);
-            color: var(--text-primary);
-        }
+        .selector-dropdown option { background: var(--bg-dark); color: var(--text-primary); }
 
-        .modal-info {
+        .available-periods {
             background: rgba(0, 212, 255, 0.05);
             border: 1px solid rgba(0, 212, 255, 0.2);
             padding: 12px;
             margin-bottom: 20px;
             font-size: 0.8rem;
-            color: var(--text-secondary);
         }
 
-        .modal-info strong {
+        .available-periods-title {
             color: var(--tron-cyan);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
         }
 
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
+        .available-periods-list {
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
+
+        .modal-buttons { display: flex; gap: 10px; margin-top: 25px; }
 
         .modal-btn {
             flex: 1;
@@ -310,9 +278,7 @@
             color: var(--text-secondary);
         }
 
-        .modal-btn.secondary:hover {
-            border-color: var(--text-secondary);
-        }
+        .modal-btn.secondary:hover { border-color: var(--text-secondary); }
 
         /* Navigation */
         .nav-tabs {
@@ -381,15 +347,6 @@
             transform: translateY(-5px);
         }
 
-        .kpi-card.empty {
-            opacity: 0.5;
-        }
-
-        .kpi-card.empty:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
         .kpi-label {
             font-family: 'Orbitron', monospace;
             font-size: 0.7rem;
@@ -409,7 +366,6 @@
 
         .kpi-value.negative { color: var(--tron-red); text-shadow: 0 0 20px rgba(255, 51, 102, 0.5); }
         .kpi-value.positive { color: var(--tron-green); text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
-        .kpi-value.empty { color: var(--text-secondary); opacity: 0.5; }
 
         /* Charts Grid */
         .charts-grid {
@@ -516,38 +472,20 @@
         <div class="modal-content">
             <h3 class="modal-title" id="modalTitle">Select Period</h3>
             
-            <div class="modal-info">
-                <strong>Data Available:</strong> <span id="availableDataInfo">December 2025</span>
+            <div class="available-periods">
+                <div class="available-periods-title">Available Data:</div>
+                <div class="available-periods-list" id="availablePeriodsList">Loading...</div>
             </div>
             
             <!-- Monthly Selector -->
             <div id="monthlySelector">
                 <div class="selector-group">
                     <div class="selector-label">Month</div>
-                    <select class="selector-dropdown" id="monthSelect">
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
+                    <select class="selector-dropdown" id="monthSelect"></select>
                 </div>
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
-                    <select class="selector-dropdown" id="yearSelect">
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                    </select>
+                    <select class="selector-dropdown" id="yearSelect"></select>
                 </div>
             </div>
             
@@ -564,13 +502,7 @@
                 </div>
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
-                    <select class="selector-dropdown" id="quarterYearSelect">
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                    </select>
+                    <select class="selector-dropdown" id="quarterYearSelect"></select>
                 </div>
             </div>
             
@@ -578,13 +510,7 @@
             <div id="annualSelector" class="hidden">
                 <div class="selector-group">
                     <div class="selector-label">Year</div>
-                    <select class="selector-dropdown" id="annualYearSelect">
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                    </select>
+                    <select class="selector-dropdown" id="annualYearSelect"></select>
                 </div>
             </div>
             
@@ -624,12 +550,11 @@
         </div>
 
         <main id="content" class="hidden">
-            <!-- No Data Message -->
             <div id="noDataMessage" class="no-data-message hidden">
                 <div class="no-data-icon">📊</div>
                 <div class="no-data-title">NO DATA AVAILABLE</div>
                 <div class="no-data-text">No data exists for the selected period.</div>
-                <div class="no-data-hint" id="noDataHint">Data is available for: December 2025</div>
+                <div class="no-data-hint" id="noDataHint"></div>
             </div>
 
             <div id="dataContent">
@@ -652,7 +577,10 @@
                     <div class="kpi-grid" id="quarterly-kpis"></div>
                     <div class="charts-grid">
                         <div class="chart-card"><h3 class="chart-title">Revenue by Product (Quarter)</h3><div class="pie-chart-container" id="quarterly-product-pie"></div></div>
-                        <div class="chart-card"><h3 class="chart-title">Quarterly Revenue Trend</h3><div class="bar-chart" id="quarterly-trend-bars"></div></div>
+                        <div class="chart-card"><h3 class="chart-title">Revenue by Customer (Quarter)</h3><div class="pie-chart-container" id="quarterly-customer-pie"></div></div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card"><h3 class="chart-title">Profit by Product (Quarter)</h3><div class="bar-chart" id="quarterly-profit-bars"></div></div>
                     </div>
                 </div>
 
@@ -682,28 +610,24 @@
         const CONFIG = {
             baseUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQn0tNOOEJD_zTR351vnZQ75dhN9Inhn7Yz_EnRbil4sIEWfIODpg_l9zZ02BlZ5nSAERlThepNRyO5/pub',
             sheets: {
-                dashboardConfig: 1691965732,
-                monthlySummary: 921362442,
-                quarterlySummary: 331143112,
-                annualSummary: 1672453392
+                shipmentsForecast: 1705716278
             }
         };
 
         const COLORS = ['#00d4ff', '#0088ff', '#7b2fff', '#ff00ff', '#00ff88', '#ff6600', '#ffcc00', '#ff3366', '#00ffcc'];
-        
-        const VALID_PRODUCTS = ['DBI 27-04', 'DBI 38-04', 'DBI NODULAR', 'TIRE WIRE', 'FOUNDRY GRADE WIRE'];
-        const VALID_CUSTOMERS = ['Asama', 'Atlas', 'BCI Solutions', 'CWC', 'Donsco', 'Donsco, Inc', 'Durabar', 'Gerdau', 'Kent Foundry', 'OSCO'];
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         // ============================================
         // STATE
         // ============================================
-        let dashboardData = { config: {}, monthly: {}, quarterly: {}, annual: {} };
-        let loadedPeriod = { monthly: {}, quarterly: {}, annual: {} };
+        let rawData = [];
+        let availablePeriods = { months: [], quarters: [], years: [] };
         let currentView = 'monthly';
         let selectedPeriod = {
-            monthly: { month: 'December', year: 2025 },
-            quarterly: { quarter: 'Q4', year: 2025 },
-            annual: { year: 2025 }
+            monthly: { month: '', year: 0 },
+            quarterly: { quarter: '', year: 0 },
+            annual: { year: 0 }
         };
 
         // ============================================
@@ -712,12 +636,6 @@
         function parseNumber(value) {
             if (!value) return 0;
             const cleaned = String(value).replace(/[$,\s]/g, '').replace(/\(([^)]+)\)/, '-$1');
-            return parseFloat(cleaned) || 0;
-        }
-
-        function parsePercent(value) {
-            if (!value) return 0;
-            const cleaned = String(value).replace(/[%\s]/g, '');
             return parseFloat(cleaned) || 0;
         }
 
@@ -738,80 +656,215 @@
             return (value === null || value === undefined || isNaN(value)) ? '0%' : value.toFixed(1) + '%';
         }
 
-        function isValidProduct(name) {
-            if (!name) return false;
-            const upper = name.trim().toUpperCase();
-            return VALID_PRODUCTS.some(p => upper.includes(p.toUpperCase()));
+        function getQuarter(month) {
+            const idx = MONTHS.indexOf(month);
+            if (idx === -1) return 'Q1';
+            return 'Q' + (Math.floor(idx / 3) + 1);
         }
 
-        function isValidCustomer(name) {
-            if (!name) return false;
-            const check = name.trim();
-            return VALID_CUSTOMERS.some(c => check.includes(c) || c.includes(check));
+        function getQuarterMonths(quarter) {
+            const q = parseInt(quarter.replace('Q', ''));
+            const startIdx = (q - 1) * 3;
+            return MONTHS.slice(startIdx, startIdx + 3);
         }
 
         // ============================================
-        // PERIOD MATCHING
+        // DATA FETCHING
         // ============================================
-        function isMonthlyPeriodMatch() {
-            return selectedPeriod.monthly.month === loadedPeriod.monthly.month &&
-                   selectedPeriod.monthly.year === loadedPeriod.monthly.year;
+        async function fetchSheet(gid) {
+            const url = `${CONFIG.baseUrl}?gid=${gid}&single=true&output=csv`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Failed to fetch data');
+            const text = await response.text();
+            return new Promise((resolve, reject) => {
+                Papa.parse(text, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: (results) => resolve(results.data),
+                    error: (err) => reject(err)
+                });
+            });
         }
 
-        function isQuarterlyPeriodMatch() {
-            return selectedPeriod.quarterly.quarter === loadedPeriod.quarterly.quarter &&
-                   selectedPeriod.quarterly.year === loadedPeriod.quarterly.year;
+        // ============================================
+        // DATA PROCESSING
+        // ============================================
+        function processRawData(data) {
+            rawData = data.filter(row => {
+                const revenue = parseNumber(row['Revenue']);
+                return revenue > 0 && row['Customer'] && row['Product'] && row['Month'] && row['Year'];
+            }).map(row => ({
+                customer: row['Customer'],
+                product: row['Product'],
+                month: row['Month'],
+                year: parseInt(row['Year']),
+                shipments: parseNumber(row['Shipments (GT)']),
+                revenue: parseNumber(row['Revenue']),
+                profit: parseNumber(row['Profit']),
+                margin: parseNumber(row['Margin']) * 100
+            }));
+
+            // Discover available periods
+            const monthYearSet = new Set();
+            const quarterYearSet = new Set();
+            const yearSet = new Set();
+
+            rawData.forEach(row => {
+                monthYearSet.add(`${row.month}|${row.year}`);
+                quarterYearSet.add(`${getQuarter(row.month)}|${row.year}`);
+                yearSet.add(row.year);
+            });
+
+            availablePeriods.months = Array.from(monthYearSet).map(s => {
+                const [month, year] = s.split('|');
+                return { month, year: parseInt(year) };
+            }).sort((a, b) => b.year - a.year || MONTHS.indexOf(b.month) - MONTHS.indexOf(a.month));
+
+            availablePeriods.quarters = Array.from(quarterYearSet).map(s => {
+                const [quarter, year] = s.split('|');
+                return { quarter, year: parseInt(year) };
+            }).sort((a, b) => b.year - a.year || parseInt(b.quarter.replace('Q','')) - parseInt(a.quarter.replace('Q','')));
+
+            availablePeriods.years = Array.from(yearSet).sort((a, b) => b - a);
+
+            console.log('Available periods:', availablePeriods);
         }
 
-        function isAnnualPeriodMatch() {
-            return selectedPeriod.annual.year === loadedPeriod.annual.year;
-        }
-
-        function isPeriodMatch() {
-            if (currentView === 'monthly') return isMonthlyPeriodMatch();
-            if (currentView === 'quarterly') return isQuarterlyPeriodMatch();
-            return isAnnualPeriodMatch();
-        }
-
-        function updateDataStatus() {
-            const status = document.getElementById('dataStatus');
-            const noDataMsg = document.getElementById('noDataMessage');
-            const dataContent = document.getElementById('dataContent');
-            const noDataHint = document.getElementById('noDataHint');
+        function calculateMonthlyData(month, year) {
+            const filtered = rawData.filter(row => row.month === month && row.year === year);
             
-            let availableText = '';
-            if (currentView === 'monthly') {
-                availableText = `${loadedPeriod.monthly.month} ${loadedPeriod.monthly.year}`;
-            } else if (currentView === 'quarterly') {
-                availableText = `${loadedPeriod.quarterly.quarter} ${loadedPeriod.quarterly.year}`;
-            } else {
-                availableText = `Year ${loadedPeriod.annual.year}`;
-            }
+            if (filtered.length === 0) return null;
+
+            const totalRevenue = filtered.reduce((sum, r) => sum + r.revenue, 0);
+            const totalShipments = filtered.reduce((sum, r) => sum + r.shipments, 0);
+            const totalProfit = filtered.reduce((sum, r) => sum + r.profit, 0);
+            const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+
+            // Group by product
+            const productMap = {};
+            filtered.forEach(row => {
+                if (!productMap[row.product]) {
+                    productMap[row.product] = { name: row.product, revenue: 0, shipments: 0, profit: 0 };
+                }
+                productMap[row.product].revenue += row.revenue;
+                productMap[row.product].shipments += row.shipments;
+                productMap[row.product].profit += row.profit;
+            });
+            const products = Object.values(productMap).map(p => ({
+                ...p,
+                pct: totalRevenue > 0 ? (p.revenue / totalRevenue) * 100 : 0,
+                margin: p.revenue > 0 ? (p.profit / p.revenue) * 100 : 0
+            })).sort((a, b) => b.revenue - a.revenue);
+
+            // Group by customer
+            const customerMap = {};
+            filtered.forEach(row => {
+                if (!customerMap[row.customer]) {
+                    customerMap[row.customer] = { name: row.customer, revenue: 0, shipments: 0, profit: 0 };
+                }
+                customerMap[row.customer].revenue += row.revenue;
+                customerMap[row.customer].shipments += row.shipments;
+                customerMap[row.customer].profit += row.profit;
+            });
+            const customers = Object.values(customerMap).map(c => ({
+                ...c,
+                pct: totalRevenue > 0 ? (c.revenue / totalRevenue) * 100 : 0,
+                margin: c.revenue > 0 ? (c.profit / c.revenue) * 100 : 0
+            })).sort((a, b) => b.revenue - a.revenue);
+
+            return { totalRevenue, totalShipments, totalProfit, avgMargin, products, customers };
+        }
+
+        function calculateQuarterlyData(quarter, year) {
+            const months = getQuarterMonths(quarter);
+            const filtered = rawData.filter(row => months.includes(row.month) && row.year === year);
             
-            if (isPeriodMatch()) {
-                status.textContent = 'DATA AVAILABLE';
-                status.className = 'data-status available';
-                noDataMsg.classList.add('hidden');
-                dataContent.classList.remove('hidden');
-            } else {
-                status.textContent = 'NO DATA FOR SELECTED PERIOD';
-                status.className = 'data-status unavailable';
-                noDataMsg.classList.remove('hidden');
-                dataContent.classList.add('hidden');
-                noDataHint.textContent = `Data is available for: ${availableText}`;
-            }
+            if (filtered.length === 0) return null;
+
+            const totalRevenue = filtered.reduce((sum, r) => sum + r.revenue, 0);
+            const totalShipments = filtered.reduce((sum, r) => sum + r.shipments, 0);
+            const totalProfit = filtered.reduce((sum, r) => sum + r.profit, 0);
+            const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+
+            const productMap = {};
+            filtered.forEach(row => {
+                if (!productMap[row.product]) {
+                    productMap[row.product] = { name: row.product, revenue: 0, profit: 0 };
+                }
+                productMap[row.product].revenue += row.revenue;
+                productMap[row.product].profit += row.profit;
+            });
+            const products = Object.values(productMap).sort((a, b) => b.revenue - a.revenue);
+
+            const customerMap = {};
+            filtered.forEach(row => {
+                if (!customerMap[row.customer]) {
+                    customerMap[row.customer] = { name: row.customer, revenue: 0, profit: 0 };
+                }
+                customerMap[row.customer].revenue += row.revenue;
+                customerMap[row.customer].profit += row.profit;
+            });
+            const customers = Object.values(customerMap).sort((a, b) => b.revenue - a.revenue);
+
+            return { totalRevenue, totalShipments, totalProfit, avgMargin, products, customers };
+        }
+
+        function calculateAnnualData(year) {
+            const filtered = rawData.filter(row => row.year === year);
+            
+            if (filtered.length === 0) return null;
+
+            const totalRevenue = filtered.reduce((sum, r) => sum + r.revenue, 0);
+            const totalShipments = filtered.reduce((sum, r) => sum + r.shipments, 0);
+            const totalProfit = filtered.reduce((sum, r) => sum + r.profit, 0);
+            const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+
+            const productMap = {};
+            filtered.forEach(row => {
+                if (!productMap[row.product]) {
+                    productMap[row.product] = { name: row.product, revenue: 0 };
+                }
+                productMap[row.product].revenue += row.revenue;
+            });
+            const products = Object.values(productMap).sort((a, b) => b.revenue - a.revenue);
+
+            // Monthly trend
+            const monthlyTrend = SHORT_MONTHS.map((shortMonth, idx) => {
+                const month = MONTHS[idx];
+                const monthData = filtered.filter(row => row.month === month);
+                return {
+                    month: shortMonth,
+                    revenue: monthData.reduce((sum, r) => sum + r.revenue, 0),
+                    profit: monthData.reduce((sum, r) => sum + r.profit, 0)
+                };
+            });
+
+            return { totalRevenue, totalShipments, totalProfit, avgMargin, products, monthlyTrend };
         }
 
         // ============================================
-        // MODAL FUNCTIONS
+        // MODAL & PERIOD SELECTION
         // ============================================
+        function populateSelectors() {
+            // Month selector
+            const monthSelect = document.getElementById('monthSelect');
+            monthSelect.innerHTML = MONTHS.map(m => `<option value="${m}">${m}</option>`).join('');
+
+            // Year selectors
+            const years = availablePeriods.years.length > 0 ? availablePeriods.years : [2025, 2024];
+            const yearOptions = years.map(y => `<option value="${y}">${y}</option>`).join('');
+            document.getElementById('yearSelect').innerHTML = yearOptions;
+            document.getElementById('quarterYearSelect').innerHTML = yearOptions;
+            document.getElementById('annualYearSelect').innerHTML = yearOptions;
+        }
+
         function openModal() {
             const modal = document.getElementById('periodModal');
             const monthlySelector = document.getElementById('monthlySelector');
             const quarterlySelector = document.getElementById('quarterlySelector');
             const annualSelector = document.getElementById('annualSelector');
             const modalTitle = document.getElementById('modalTitle');
-            const availableInfo = document.getElementById('availableDataInfo');
+            const availableList = document.getElementById('availablePeriodsList');
             
             monthlySelector.classList.add('hidden');
             quarterlySelector.classList.add('hidden');
@@ -820,19 +873,19 @@
             if (currentView === 'monthly') {
                 monthlySelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Month & Year';
-                availableInfo.textContent = `${loadedPeriod.monthly.month} ${loadedPeriod.monthly.year}`;
+                availableList.textContent = availablePeriods.months.slice(0, 6).map(p => `${p.month} ${p.year}`).join(', ');
                 document.getElementById('monthSelect').value = selectedPeriod.monthly.month;
                 document.getElementById('yearSelect').value = selectedPeriod.monthly.year;
             } else if (currentView === 'quarterly') {
                 quarterlySelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Quarter & Year';
-                availableInfo.textContent = `${loadedPeriod.quarterly.quarter} ${loadedPeriod.quarterly.year}`;
+                availableList.textContent = availablePeriods.quarters.slice(0, 6).map(p => `${p.quarter} ${p.year}`).join(', ');
                 document.getElementById('quarterSelect').value = selectedPeriod.quarterly.quarter;
                 document.getElementById('quarterYearSelect').value = selectedPeriod.quarterly.year;
             } else {
                 annualSelector.classList.remove('hidden');
                 modalTitle.textContent = 'Select Year';
-                availableInfo.textContent = `Year ${loadedPeriod.annual.year}`;
+                availableList.textContent = availablePeriods.years.join(', ');
                 document.getElementById('annualYearSelect').value = selectedPeriod.annual.year;
             }
             
@@ -855,7 +908,7 @@
             }
             
             updatePeriodDisplay();
-            updateDataStatus();
+            renderCurrentView();
             closeModal();
         }
 
@@ -870,137 +923,26 @@
             }
         }
 
-        // ============================================
-        // DATA FETCHING
-        // ============================================
-        async function fetchSheet(gid) {
-            const url = `${CONFIG.baseUrl}?gid=${gid}&single=true&output=csv`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Failed to fetch sheet');
-            const text = await response.text();
-            return new Promise((resolve, reject) => {
-                Papa.parse(text, {
-                    header: false,
-                    skipEmptyLines: true,
-                    complete: (results) => resolve(results.data),
-                    error: (err) => reject(err)
-                });
-            });
-        }
-
-        // ============================================
-        // DATA PROCESSING
-        // ============================================
-        function processMonthlyData(data) {
-            const result = {
-                selectedMonth: data[3] ? data[3][1] : 'December',
-                selectedYear: data[3] ? parseNumber(data[3][2]) : 2025,
-                totalRevenue: data[7] ? parseNumber(data[7][0]) : 0,
-                totalShipments: data[7] ? parseNumber(data[7][2]) : 0,
-                totalProfit: data[7] ? parseNumber(data[7][4]) : 0,
-                avgMargin: data[7] ? parsePercent(data[7][6]) : 0,
-                products: [],
-                customers: []
-            };
-
-            for (let i = 10; i < 25; i++) {
-                if (data[i] && data[i][0] && isValidProduct(data[i][0]) && parseNumber(data[i][1]) > 0) {
-                    result.products.push({
-                        name: data[i][0].trim(),
-                        revenue: parseNumber(data[i][1]),
-                        pct: parsePercent(data[i][2]) * 100,
-                        shipments: parseNumber(data[i][3]),
-                        profit: parseNumber(data[i][5]),
-                        margin: parsePercent(data[i][6]) * 100
-                    });
-                }
-            }
-
-            for (let i = 20; i < 40; i++) {
-                if (data[i] && data[i][0] && isValidCustomer(data[i][0]) && parseNumber(data[i][1]) > 0) {
-                    result.customers.push({
-                        name: data[i][0].trim(),
-                        revenue: parseNumber(data[i][1]),
-                        pct: parsePercent(data[i][2]) * 100,
-                        shipments: parseNumber(data[i][3]),
-                        profit: parseNumber(data[i][5]),
-                        margin: parsePercent(data[i][6]) * 100
-                    });
-                }
-            }
-
-            return result;
-        }
-
-        function processQuarterlyData(data) {
-            const result = {
-                selectedQuarter: data[3] ? data[3][1] : 'Q4',
-                selectedYear: data[3] ? parseNumber(data[3][2]) : 2025,
-                totalRevenue: data[7] ? parseNumber(data[7][0]) : 0,
-                totalShipments: data[7] ? parseNumber(data[7][2]) : 0,
-                totalProfit: data[7] ? parseNumber(data[7][4]) : 0,
-                avgMargin: data[7] ? parsePercent(data[7][6]) : 0,
-                trend: [],
-                products: []
-            };
-
-            for (let i = 10; i < 25; i++) {
-                if (data[i] && data[i][0] && isValidProduct(data[i][0]) && parseNumber(data[i][1]) > 0) {
-                    result.products.push({ name: data[i][0].trim(), revenue: parseNumber(data[i][1]) });
-                }
-            }
-
-            for (let i = 30; i < 50; i++) {
-                if (data[i] && String(data[i][0]).match(/^Q[1-4]$/) && parseNumber(data[i][2]) > 0) {
-                    result.trend.push({ quarter: data[i][0] + ' ' + data[i][1], revenue: parseNumber(data[i][2]) });
-                }
-            }
-
-            return result;
-        }
-
-        function processAnnualData(data) {
-            const result = {
-                selectedYear: data[3] ? parseNumber(data[3][1]) : 2025,
-                totalRevenue: data[7] ? parseNumber(data[7][0]) : 0,
-                totalShipments: data[7] ? parseNumber(data[7][2]) : 0,
-                totalProfit: data[7] ? parseNumber(data[7][4]) : 0,
-                avgMargin: data[7] ? parsePercent(data[7][6]) : 0,
-                monthlyTrend: [],
-                products: []
-            };
-
-            for (let i = 10; i < 25; i++) {
-                if (data[i] && data[i][0] && isValidProduct(data[i][0]) && parseNumber(data[i][1]) > 0) {
-                    result.products.push({ name: data[i][0].trim(), revenue: parseNumber(data[i][1]) });
-                }
-            }
-
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        function updateDataStatus(hasData) {
+            const status = document.getElementById('dataStatus');
+            const noDataMsg = document.getElementById('noDataMessage');
+            const dataContent = document.getElementById('dataContent');
+            const noDataHint = document.getElementById('noDataHint');
             
-            for (let i = 30; i < 55; i++) {
-                if (data[i] && data[i][0]) {
-                    const idx = monthNames.findIndex(m => String(data[i][0]).toLowerCase() === m.toLowerCase());
-                    if (idx !== -1) {
-                        result.monthlyTrend.push({ month: shortMonths[idx], revenue: parseNumber(data[i][1]), profit: parseNumber(data[i][3]) });
-                    }
-                }
+            if (hasData) {
+                status.textContent = 'DATA AVAILABLE';
+                status.className = 'data-status available';
+                noDataMsg.classList.add('hidden');
+                dataContent.classList.remove('hidden');
+            } else {
+                status.textContent = 'NO DATA FOR SELECTED PERIOD';
+                status.className = 'data-status unavailable';
+                noDataMsg.classList.remove('hidden');
+                dataContent.classList.add('hidden');
+                
+                const hint = availablePeriods.months.slice(0, 3).map(p => `${p.month} ${p.year}`).join(', ');
+                noDataHint.textContent = `Data is available for: ${hint}`;
             }
-
-            if (result.monthlyTrend.length === 0) {
-                result.monthlyTrend = shortMonths.map(m => ({ month: m, revenue: 0, profit: 0 }));
-            }
-
-            return result;
-        }
-
-        function processConfigData(data) {
-            return {
-                currentMonth: data[0] ? data[0][1] : 'December',
-                currentYear: data[1] ? parseNumber(data[1][1]) : 2025,
-                lastUpdated: data[2] ? data[2][1] : new Date().toLocaleString()
-            };
         }
 
         // ============================================
@@ -1021,7 +963,7 @@
             const total = validData.reduce((sum, d) => sum + (d[valueKey] || 0), 0);
             
             if (total === 0) { 
-                container.innerHTML = '<div class="pie-chart empty"></div><div class="pie-legend"><p style="color: var(--text-secondary);">No data available</p></div>'; 
+                container.innerHTML = '<div class="pie-chart empty"></div><div class="pie-legend"><p style="color: var(--text-secondary);">No data</p></div>'; 
                 return; 
             }
 
@@ -1045,14 +987,13 @@
             `;
         }
 
-        function renderBarChart(containerId, data, valueKey, labelKey, showNegative = false) {
+        function renderBarChart(containerId, data, valueKey, labelKey) {
             const container = document.getElementById(containerId);
-            const validData = data.filter(d => d[labelKey]);
-            if (validData.length === 0) { container.innerHTML = '<p style="color: var(--text-secondary);">No data available</p>'; return; }
+            if (!data || data.length === 0) { container.innerHTML = '<p style="color: var(--text-secondary);">No data</p>'; return; }
             
-            const maxAbs = Math.max(...validData.map(d => Math.abs(d[valueKey] || 0))) || 1;
+            const maxAbs = Math.max(...data.map(d => Math.abs(d[valueKey] || 0))) || 1;
 
-            container.innerHTML = validData.map(item => {
+            container.innerHTML = data.map(item => {
                 const value = item[valueKey] || 0;
                 const pct = (Math.abs(value) / maxAbs) * 100;
                 const isNeg = value < 0;
@@ -1081,11 +1022,15 @@
         }
 
         function renderMonthlyView() {
-            const data = dashboardData.monthly;
+            const data = calculateMonthlyData(selectedPeriod.monthly.month, selectedPeriod.monthly.year);
+            updateDataStatus(data !== null);
+            
+            if (!data) return;
+
             renderKPIs('monthly-kpis', data);
             renderPieChart('product-pie', data.products, 'revenue');
             renderPieChart('customer-pie', data.customers, 'revenue');
-            renderBarChart('profit-bars', data.products, 'profit', 'name', true);
+            renderBarChart('profit-bars', data.products, 'profit', 'name');
             renderTable('product-table', data.products, [
                 { header: 'Product', key: 'name', type: 'text' },
                 { header: 'Revenue', key: 'revenue', type: 'currency' },
@@ -1102,18 +1047,33 @@
         }
 
         function renderQuarterlyView() {
-            const data = dashboardData.quarterly;
+            const data = calculateQuarterlyData(selectedPeriod.quarterly.quarter, selectedPeriod.quarterly.year);
+            updateDataStatus(data !== null);
+            
+            if (!data) return;
+
             renderKPIs('quarterly-kpis', data);
             renderPieChart('quarterly-product-pie', data.products, 'revenue');
-            renderBarChart('quarterly-trend-bars', data.trend.filter(t => t.revenue > 0), 'revenue', 'quarter');
+            renderPieChart('quarterly-customer-pie', data.customers, 'revenue');
+            renderBarChart('quarterly-profit-bars', data.products, 'profit', 'name');
         }
 
         function renderAnnualView() {
-            const data = dashboardData.annual;
+            const data = calculateAnnualData(selectedPeriod.annual.year);
+            updateDataStatus(data !== null);
+            
+            if (!data) return;
+
             renderKPIs('annual-kpis', data);
             renderPieChart('annual-product-pie', data.products, 'revenue');
             renderBarChart('monthly-revenue-bars', data.monthlyTrend, 'revenue', 'month');
-            renderBarChart('monthly-profit-bars', data.monthlyTrend, 'profit', 'month', true);
+            renderBarChart('monthly-profit-bars', data.monthlyTrend, 'profit', 'month');
+        }
+
+        function renderCurrentView() {
+            if (currentView === 'monthly') renderMonthlyView();
+            else if (currentView === 'quarterly') renderQuarterlyView();
+            else renderAnnualView();
         }
 
         // ============================================
@@ -1129,30 +1089,12 @@
                     document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
                     document.getElementById(`${currentView}-view`).classList.remove('hidden');
                     
-                    // Reset selected period to match loaded data when switching views
-                    if (currentView === 'monthly') {
-                        selectedPeriod.monthly.month = loadedPeriod.monthly.month;
-                        selectedPeriod.monthly.year = loadedPeriod.monthly.year;
-                    } else if (currentView === 'quarterly') {
-                        selectedPeriod.quarterly.quarter = loadedPeriod.quarterly.quarter;
-                        selectedPeriod.quarterly.year = loadedPeriod.quarterly.year;
-                    } else {
-                        selectedPeriod.annual.year = loadedPeriod.annual.year;
-                    }
-                    
                     updatePeriodDisplay();
-                    updateDataStatus();
-                    
-                    if (currentView === 'monthly') renderMonthlyView();
-                    else if (currentView === 'quarterly') renderQuarterlyView();
-                    else renderAnnualView();
+                    renderCurrentView();
                 });
             });
         }
 
-        // ============================================
-        // MOUSE GLOW
-        // ============================================
         function setupMouseGlow() {
             const glow = document.getElementById('mouseGlow');
             document.addEventListener('mousemove', (e) => {
@@ -1174,41 +1116,25 @@
             content.classList.add('hidden');
 
             try {
-                const [configData, monthlyData, quarterlyData, annualData] = await Promise.all([
-                    fetchSheet(CONFIG.sheets.dashboardConfig),
-                    fetchSheet(CONFIG.sheets.monthlySummary),
-                    fetchSheet(CONFIG.sheets.quarterlySummary),
-                    fetchSheet(CONFIG.sheets.annualSummary)
-                ]);
+                const data = await fetchSheet(CONFIG.sheets.shipmentsForecast);
+                processRawData(data);
+                
+                // Set default period to most recent available
+                if (availablePeriods.months.length > 0) {
+                    selectedPeriod.monthly = { ...availablePeriods.months[0] };
+                }
+                if (availablePeriods.quarters.length > 0) {
+                    selectedPeriod.quarterly = { ...availablePeriods.quarters[0] };
+                }
+                if (availablePeriods.years.length > 0) {
+                    selectedPeriod.annual = { year: availablePeriods.years[0] };
+                }
 
-                dashboardData.config = processConfigData(configData);
-                dashboardData.monthly = processMonthlyData(monthlyData);
-                dashboardData.quarterly = processQuarterlyData(quarterlyData);
-                dashboardData.annual = processAnnualData(annualData);
-
-                // Store what period the data is actually for
-                loadedPeriod.monthly = {
-                    month: dashboardData.monthly.selectedMonth,
-                    year: dashboardData.monthly.selectedYear
-                };
-                loadedPeriod.quarterly = {
-                    quarter: dashboardData.quarterly.selectedQuarter,
-                    year: dashboardData.quarterly.selectedYear
-                };
-                loadedPeriod.annual = {
-                    year: dashboardData.annual.selectedYear
-                };
-
-                // Set selected period to match loaded data
-                selectedPeriod.monthly = { ...loadedPeriod.monthly };
-                selectedPeriod.quarterly = { ...loadedPeriod.quarterly };
-                selectedPeriod.annual = { ...loadedPeriod.annual };
-
+                populateSelectors();
                 updatePeriodDisplay();
-                updateDataStatus();
-                document.getElementById('lastUpdated').textContent = `Last Updated: ${dashboardData.config.lastUpdated}`;
-
                 renderMonthlyView();
+
+                document.getElementById('lastUpdated').textContent = `Last Updated: ${new Date().toLocaleString()}`;
 
                 loading.classList.add('hidden');
                 content.classList.remove('hidden');
