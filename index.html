@@ -826,6 +826,27 @@
             });
         });
 
+        // Parse formatted currency/percentage values
+        function parseNumber(value) {
+            if (value === null || value === undefined || value === '') return 0;
+            
+            let str = String(value).trim();
+            
+            // Check if negative (parentheses format)
+            const isNegative = str.includes('(') && str.includes(')');
+            
+            // Remove currency symbols, commas, parentheses, percentage signs, spaces
+            str = str.replace(/[$,%\s()]/g, '');
+            
+            // Parse the number
+            let num = parseFloat(str) || 0;
+            
+            // Apply negative if it was in parentheses
+            if (isNegative) num = -num;
+            
+            return num;
+        }
+
         // Format currency
         function formatCurrency(value) {
             const absValue = Math.abs(value);
@@ -968,9 +989,9 @@
                     aggregated[name] = { revenue: 0, shipments: 0, profit: 0 };
                 }
                 
-                const revenue = parseFloat(row['Revenue']) || 0;
-                const shipments = parseFloat(row['Shipments (GT.)']) || 0;
-                const profit = parseFloat(row['Profit']) || 0;
+                const revenue = parseNumber(row['Revenue']);
+                const shipments = parseNumber(row['Shipments (GT.)']);
+                const profit = parseNumber(row['Profit']);
                 
                 aggregated[name].revenue += revenue;
                 aggregated[name].shipments += shipments;
@@ -1086,9 +1107,9 @@
             let totalProfit = 0;
             
             data.forEach(row => {
-                totalRevenue += parseFloat(row['Revenue']) || 0;
-                totalShipments += parseFloat(row['Shipments (GT.)']) || 0;
-                totalProfit += parseFloat(row['Profit']) || 0;
+                totalRevenue += parseNumber(row['Revenue']);
+                totalShipments += parseNumber(row['Shipments (GT.)']);
+                totalProfit += parseNumber(row['Profit']);
             });
             
             const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
@@ -1180,14 +1201,14 @@
                     debugHTML += `<p><strong>Columns containing 'profit':</strong> ${headers.filter(h => h.toLowerCase().includes('profit')).join(', ') || 'None found'}</p>`;
                     
                     // Test parsing
-                    const testRevenue = parseFloat(firstRow['Revenue']) || 0;
-                    const testProfit = parseFloat(firstRow['Profit']) || 0;
-                    const testShipments = parseFloat(firstRow['Shipments (GT.)']) || 0;
+                    const testRevenue = parseNumber(firstRow['Revenue']);
+                    const testProfit = parseNumber(firstRow['Profit']);
+                    const testShipments = parseNumber(firstRow['Shipments (GT.)']);
                     
                     debugHTML += `<p style="margin-top:15px;"><strong>Parse test results:</strong></p>`;
-                    debugHTML += `<p>• parseFloat(Revenue) = ${testRevenue}</p>`;
-                    debugHTML += `<p>• parseFloat(Profit) = ${testProfit}</p>`;
-                    debugHTML += `<p>• parseFloat(Shipments) = ${testShipments}</p>`;
+                    debugHTML += `<p>• parseNumber(Revenue) = ${testRevenue}</p>`;
+                    debugHTML += `<p>• parseNumber(Profit) = ${testProfit}</p>`;
+                    debugHTML += `<p>• parseNumber(Shipments) = ${testShipments}</p>`;
                     
                     console.log('Headers found:', headers);
                     console.log('Sample row:', firstRow);
