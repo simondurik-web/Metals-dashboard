@@ -754,22 +754,6 @@
         <footer class="footer">
             <p>ENTECH Metal Sales Dashboard • Data updates automatically</p>
         </footer>
-
-        <!-- Debug Panel - Remove after troubleshooting -->
-        <div id="debugPanel" style="
-            background: #1a2e2a;
-            color: #10b981;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 12px;
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            max-height: 400px;
-            overflow-y: auto;
-        ">
-            <h3 style="color: #d97706; margin-bottom: 15px;">🔧 DEBUG PANEL (Remove after fixing)</h3>
-            <div id="debugContent">Loading debug info...</div>
-        </div>
     </div>
 
     <script>
@@ -782,11 +766,20 @@
         let currentView = 'monthly';
         let currentPeriod = '';
 
-        // Colors for charts - Teal/Amber palette
+        // Colors for charts - Distinct palette (no similar colors next to each other)
         const COLORS = [
-            '#0d9488', '#d97706', '#059669', '#ea580c', '#0891b2', 
-            '#65a30d', '#dc2626', '#7c3aed', '#db2777', '#0284c7',
-            '#ca8a04', '#16a34a'
+            '#0d9488', // Teal
+            '#f97316', // Orange
+            '#3b82f6', // Blue
+            '#a855f7', // Purple
+            '#ec4899', // Pink
+            '#eab308', // Yellow
+            '#ef4444', // Red
+            '#06b6d4', // Cyan
+            '#84cc16', // Lime
+            '#8b5cf6', // Violet
+            '#14b8a6', // Teal light
+            '#f59e0b'  // Amber
         ];
 
         // Mouse glow effect
@@ -1169,60 +1162,10 @@
                 const csv = await response.text();
                 rawData = parseCSV(csv);
                 
-                // DEBUG: Show what we're getting
-                let debugHTML = '';
-                
-                if (rawData.length > 0) {
-                    const headers = Object.keys(rawData[0]);
-                    const firstRow = rawData[0];
-                    
-                    debugHTML += `<p><strong>Total rows loaded:</strong> ${rawData.length}</p>`;
-                    debugHTML += `<p><strong>All column headers (${headers.length}):</strong></p>`;
-                    debugHTML += `<pre style="background:#0d1f1c;padding:10px;border-radius:8px;overflow-x:auto;">${headers.join('\n')}</pre>`;
-                    
-                    debugHTML += `<p style="margin-top:15px;"><strong>First row sample data:</strong></p>`;
-                    debugHTML += `<table style="width:100%;border-collapse:collapse;margin-top:10px;">`;
-                    
-                    // Show key columns
-                    const keyColumns = ['Customer', 'Product', 'Month', 'Year', 'Shipments (GT.)', 'Revenue', 'Profit', 'Margin'];
-                    keyColumns.forEach(col => {
-                        const value = firstRow[col];
-                        const status = value && value !== '' && value !== '0' ? '✅' : '❌';
-                        debugHTML += `<tr style="border-bottom:1px solid #2a4a44;">
-                            <td style="padding:8px;color:#8a9e99;">${col}</td>
-                            <td style="padding:8px;color:#10b981;">${value || '(empty)'}</td>
-                            <td style="padding:8px;">${status}</td>
-                        </tr>`;
-                    });
-                    debugHTML += `</table>`;
-                    
-                    // Show columns that might contain revenue/profit
-                    debugHTML += `<p style="margin-top:15px;"><strong>Columns containing 'revenue':</strong> ${headers.filter(h => h.toLowerCase().includes('revenue')).join(', ') || 'None found'}</p>`;
-                    debugHTML += `<p><strong>Columns containing 'profit':</strong> ${headers.filter(h => h.toLowerCase().includes('profit')).join(', ') || 'None found'}</p>`;
-                    
-                    // Test parsing
-                    const testRevenue = parseNumber(firstRow['Revenue']);
-                    const testProfit = parseNumber(firstRow['Profit']);
-                    const testShipments = parseNumber(firstRow['Shipments (GT.)']);
-                    
-                    debugHTML += `<p style="margin-top:15px;"><strong>Parse test results:</strong></p>`;
-                    debugHTML += `<p>• parseNumber(Revenue) = ${testRevenue}</p>`;
-                    debugHTML += `<p>• parseNumber(Profit) = ${testProfit}</p>`;
-                    debugHTML += `<p>• parseNumber(Shipments) = ${testShipments}</p>`;
-                    
-                    console.log('Headers found:', headers);
-                    console.log('Sample row:', firstRow);
-                } else {
-                    debugHTML = '<p style="color:#ef4444;">No data rows found in CSV!</p>';
-                }
-                
-                document.getElementById('debugContent').innerHTML = debugHTML;
-                
                 updatePeriodOptions();
                 updateDashboard();
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('debugContent').innerHTML = `<p style="color:#ef4444;">Error: ${error.message}</p>`;
                 document.getElementById('metricsGrid').innerHTML = `
                     <div class="metric-card full-width" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                         <p style="color: var(--accent-danger); font-size: 16px;">
