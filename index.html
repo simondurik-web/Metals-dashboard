@@ -7,23 +7,23 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #f8f9fc;
+            --bg-primary: #f5f7f6;
             --bg-secondary: #ffffff;
             --bg-card: #ffffff;
-            --bg-hover: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --accent-primary: #3b82f6;
-            --accent-secondary: #8b5cf6;
-            --accent-success: #10b981;
-            --accent-danger: #ef4444;
-            --accent-warning: #f59e0b;
-            --border-color: #e2e8f0;
+            --bg-hover: #f0f4f3;
+            --text-primary: #1a2e2a;
+            --text-secondary: #5a706b;
+            --text-muted: #8a9e99;
+            --accent-primary: #0d9488;
+            --accent-secondary: #d97706;
+            --accent-success: #059669;
+            --accent-danger: #dc2626;
+            --accent-warning: #ea580c;
+            --border-color: #d4e0dc;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
+            --shadow-md: 0 4px 12px rgba(13, 148, 136, 0.08);
+            --shadow-lg: 0 8px 30px rgba(13, 148, 136, 0.12);
+            --shadow-glow: 0 0 40px rgba(13, 148, 136, 0.18);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
@@ -53,9 +53,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(13, 148, 136, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(217, 119, 6, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(5, 150, 105, 0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -66,7 +66,7 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 1;
@@ -216,7 +216,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.1), transparent);
             transition: left 0.5s ease;
         }
 
@@ -231,10 +231,10 @@
         }
 
         .view-tab.active {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background: linear-gradient(135deg, var(--accent-primary), #0f766e);
             border-color: transparent;
             color: white;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
+            box-shadow: 0 8px 25px rgba(13, 148, 136, 0.35);
         }
 
         /* Metric Cards */
@@ -300,10 +300,10 @@
             100% { transform: scale(1); }
         }
 
-        .metric-card:nth-child(1) { --card-accent: var(--accent-primary); }
-        .metric-card:nth-child(2) { --card-accent: var(--accent-secondary); }
+        .metric-card:nth-child(1) { --card-accent: #0d9488; }
+        .metric-card:nth-child(2) { --card-accent: #0891b2; }
         .metric-card:nth-child(3) { --card-accent: var(--accent-danger); }
-        .metric-card:nth-child(4) { --card-accent: var(--accent-warning); }
+        .metric-card:nth-child(4) { --card-accent: #d97706; }
 
         .metric-label {
             font-size: 12px;
@@ -354,7 +354,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.05) 0%, transparent 50%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
@@ -362,7 +362,7 @@
 
         .card:hover {
             box-shadow: var(--shadow-md);
-            border-color: rgba(59, 130, 246, 0.2);
+            border-color: rgba(13, 148, 136, 0.2);
         }
 
         .card:hover::after {
@@ -637,7 +637,7 @@
             align-items: center;
             gap: 4px;
             padding: 4px 10px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(13, 148, 136, 0.1);
             color: var(--accent-primary);
             border-radius: 20px;
             font-family: 'Space Mono', monospace;
@@ -759,18 +759,18 @@
     <script>
         // Google Sheets configuration
         const SHEET_ID = '2PACX-1vQn0tNOOEJD_zTR351vnZQ75dhN9Inhn7Yz_EnRbil4sIEWfIODpg_l9zZ02BlZ5nSAERlThepNRyO5';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv&gid=1667498936`;
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv&gid=1705716278`;
         
         // State
         let rawData = [];
         let currentView = 'monthly';
         let currentPeriod = '';
 
-        // Colors for charts
+        // Colors for charts - Teal/Amber palette
         const COLORS = [
-            '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', 
-            '#06b6d4', '#ec4899', '#84cc16', '#f97316', '#6366f1',
-            '#14b8a6', '#a855f7'
+            '#0d9488', '#d97706', '#059669', '#ea580c', '#0891b2', 
+            '#65a30d', '#dc2626', '#7c3aed', '#db2777', '#0284c7',
+            '#ca8a04', '#16a34a'
         ];
 
         // Mouse glow effect
