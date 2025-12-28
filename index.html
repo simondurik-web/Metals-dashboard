@@ -533,21 +533,23 @@
         }
 
         .data-table th {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             color: var(--text-secondary);
             text-align: left;
-            padding: 12px 16px;
+            padding: 12px 12px;
             border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
         }
 
         .data-table td {
-            padding: 14px 16px;
-            font-size: 14px;
+            padding: 14px 12px;
+            font-size: 13px;
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .data-table tr {
@@ -736,18 +738,24 @@
 
             <div class="card full-width reveal">
                 <h2 class="card-title">Customer Performance</h2>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Revenue</th>
-                            <th>Shipments (GT)</th>
-                            <th>Profit</th>
-                            <th>Margin</th>
-                        </tr>
-                    </thead>
-                    <tbody id="customerTable"></tbody>
-                </table>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Revenue</th>
+                                <th>% of Total</th>
+                                <th>Shipments (GT)</th>
+                                <th>Avg Price/GT</th>
+                                <th>Variable Cost/GT</th>
+                                <th>Total Cost/GT</th>
+                                <th>Profit</th>
+                                <th>Margin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTable"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -850,6 +858,11 @@
                 return sign + '$' + (absValue / 1000).toFixed(1) + 'K';
             }
             return sign + '$' + absValue.toFixed(0);
+        }
+
+        // Format currency exact (no K/M abbreviation) - for cost per GT
+        function formatCurrencyExact(value) {
+            return '$' + value.toFixed(2);
         }
 
         // Format number
@@ -979,23 +992,41 @@
                 if (!name) return;
                 
                 if (!aggregated[name]) {
-                    aggregated[name] = { revenue: 0, shipments: 0, profit: 0 };
+                    aggregated[name] = { 
+                        revenue: 0, 
+                        shipments: 0, 
+                        profit: 0,
+                        variableCostWeighted: 0,
+                        totalCostWeighted: 0
+                    };
                 }
                 
                 const revenue = parseNumber(row['Revenue']);
                 const shipments = parseNumber(row['Shipments (GT.)']);
                 const profit = parseNumber(row['Profit']);
+                const variableCost = parseNumber(row['Product total variable cost/GT']);
+                const totalCost = parseNumber(row['Product total cost/GT']);
                 
                 aggregated[name].revenue += revenue;
                 aggregated[name].shipments += shipments;
                 aggregated[name].profit += profit;
+                // For weighted average: sum of (shipments * cost)
+                aggregated[name].variableCostWeighted += shipments * variableCost;
+                aggregated[name].totalCostWeighted += shipments * totalCost;
             });
+            
+            // Calculate total revenue for percentage
+            const totalRevenue = Object.values(aggregated).reduce((sum, item) => sum + item.revenue, 0);
             
             return Object.entries(aggregated)
                 .map(([name, data]) => ({
                     name,
                     revenue: data.revenue,
+                    pctOfTotal: totalRevenue > 0 ? (data.revenue / totalRevenue) * 100 : 0,
                     shipments: data.shipments,
+                    avgPrice: data.shipments > 0 ? data.revenue / data.shipments : 0,
+                    variableCostPerGT: data.shipments > 0 ? data.variableCostWeighted / data.shipments : 0,
+                    totalCostPerGT: data.shipments > 0 ? data.totalCostWeighted / data.shipments : 0,
                     profit: data.profit,
                     margin: data.revenue > 0 ? (data.profit / data.revenue) * 100 : 0
                 }))
@@ -1066,28 +1097,60 @@
         }
 
         // Create data table
-        function createTable(container, data, showShipments = true) {
+        function createTable(container, data, isCustomerTable = false) {
             if (data.length === 0) {
-                container.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No data available</td></tr>';
+                const colSpan = isCustomerTable ? 9 : 5;
+                container.innerHTML = `<tr><td colspan="${colSpan}" style="text-align: center; color: var(--text-muted); padding: 30px;">No data available</td></tr>`;
                 return;
             }
             
-            container.innerHTML = data.map(item => {
-                const marginClass = item.margin >= 0 ? 'positive' : 'negative';
-                const profitClass = item.profit >= 0 ? 'positive' : 'negative';
-                
-                return `
-                    <tr>
-                        <td class="table-name">${item.name}</td>
-                        <td class="table-value">${formatCurrency(item.revenue)}</td>
-                        <td class="table-value">
-                            ${showShipments ? `<span class="shipments-badge">${formatNumber(item.shipments)} GT</span>` : '-'}
-                        </td>
-                        <td class="table-value ${profitClass}">${formatCurrency(item.profit)}</td>
-                        <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
-                    </tr>
-                `;
-            }).join('');
+            if (isCustomerTable) {
+                // Expanded customer table with cost columns
+                container.innerHTML = data.map(item => {
+                    const marginClass = item.margin >= 0 ? 'positive' : 'negative';
+                    const profitClass = item.profit >= 0 ? 'positive' : 'negative';
+                    const profitFormatted = item.profit < 0 
+                        ? `(${formatCurrency(Math.abs(item.profit)).replace('-', '')})` 
+                        : formatCurrency(item.profit);
+                    
+                    return `
+                        <tr>
+                            <td class="table-name">${item.name}</td>
+                            <td class="table-value">${formatCurrency(item.revenue)}</td>
+                            <td class="table-value">${item.pctOfTotal.toFixed(1)}%</td>
+                            <td class="table-value">
+                                <span class="shipments-badge">${formatNumber(item.shipments)} GT</span>
+                            </td>
+                            <td class="table-value">${formatCurrencyExact(item.avgPrice)}</td>
+                            <td class="table-value">${formatCurrencyExact(item.variableCostPerGT)}</td>
+                            <td class="table-value">${formatCurrencyExact(item.totalCostPerGT)}</td>
+                            <td class="table-value ${profitClass}" style="font-weight: 600;">${profitFormatted}</td>
+                            <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }).join('');
+            } else {
+                // Product performance table (simpler)
+                container.innerHTML = data.map(item => {
+                    const marginClass = item.margin >= 0 ? 'positive' : 'negative';
+                    const profitClass = item.profit >= 0 ? 'positive' : 'negative';
+                    const profitFormatted = item.profit < 0 
+                        ? `(${formatCurrency(Math.abs(item.profit)).replace('-', '')})` 
+                        : formatCurrency(item.profit);
+                    
+                    return `
+                        <tr>
+                            <td class="table-name">${item.name}</td>
+                            <td class="table-value">${formatCurrency(item.revenue)}</td>
+                            <td class="table-value">
+                                <span class="shipments-badge">${formatNumber(item.shipments)} GT</span>
+                            </td>
+                            <td class="table-value ${profitClass}" style="font-weight: 600;">${profitFormatted}</td>
+                            <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
         }
 
         // Update dashboard
@@ -1151,7 +1214,7 @@
             createBarChart(document.getElementById('profitChart'), productData);
             
             // Update tables
-            createTable(document.getElementById('productTable'), productData, true);
+            createTable(document.getElementById('productTable'), productData, false);
             createTable(document.getElementById('customerTable'), customerData, true);
         }
 
