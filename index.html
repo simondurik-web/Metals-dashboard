@@ -60,17 +60,22 @@
             z-index: 0;
         }
 
-        /* Mouse glow effect */
+        /* Enhanced Mouse glow effect - BRIGHTER & LARGER */
         .mouse-glow {
             position: fixed;
-            width: 400px;
-            height: 400px;
+            width: 600px;
+            height: 600px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, 
+                rgba(13, 148, 136, 0.25) 0%, 
+                rgba(13, 148, 136, 0.12) 30%,
+                rgba(13, 148, 136, 0.05) 50%,
+                transparent 70%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 1;
             transition: opacity 0.3s ease;
+            filter: blur(1px);
         }
 
         .container {
@@ -97,6 +102,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+            letter-spacing: 14px;
         }
 
         .subtitle {
@@ -138,6 +149,7 @@
         .select-wrapper select:hover {
             border-color: var(--accent-primary);
             box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
         }
 
         .select-wrapper select:focus {
@@ -205,63 +217,40 @@
             cursor: pointer;
             border-radius: var(--radius-md);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .view-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .view-tab:hover::before {
-            left: 100%;
         }
 
         .view-tab:hover {
             border-color: var(--accent-primary);
             color: var(--accent-primary);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .view-tab.active {
             background: linear-gradient(135deg, var(--accent-primary), #0f766e);
             border-color: transparent;
             color: white;
-            box-shadow: 0 8px 25px rgba(13, 148, 136, 0.35);
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
         }
 
-        /* Metric Cards */
+        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 24px;
             margin-bottom: 40px;
-        }
-
-        @media (max-width: 1024px) {
-            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 600px) {
-            .metrics-grid { grid-template-columns: 1fr; }
         }
 
         .metric-card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 28px;
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
             transition: var(--transition);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
         }
 
         .metric-card::before {
@@ -271,15 +260,14 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--card-accent, var(--accent-primary)), transparent);
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             opacity: 0;
             transition: var(--transition);
         }
 
         .metric-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--card-accent, var(--accent-primary));
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
         }
 
         .metric-card:hover::before {
@@ -287,31 +275,23 @@
         }
 
         .metric-card:active {
-            transform: translateY(-2px) scale(0.98);
+            transform: translateY(-3px) scale(0.99);
         }
-
-        .metric-card.clicked {
-            animation: cardClick 0.4s ease;
-        }
-
-        @keyframes cardClick {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); box-shadow: var(--shadow-glow); }
-            100% { transform: scale(1); }
-        }
-
-        .metric-card:nth-child(1) { --card-accent: #0d9488; }
-        .metric-card:nth-child(2) { --card-accent: #0891b2; }
-        .metric-card:nth-child(3) { --card-accent: var(--accent-danger); }
-        .metric-card:nth-child(4) { --card-accent: #d97706; }
 
         .metric-label {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .metric-card:hover .metric-label {
+            color: var(--accent-primary);
+            transform: scale(1.05);
+            transform-origin: left;
         }
 
         .metric-value {
@@ -319,98 +299,236 @@
             font-size: 32px;
             font-weight: 700;
             color: var(--text-primary);
-            line-height: 1;
+            transition: var(--transition);
         }
 
         .metric-value.positive { color: var(--accent-success); }
         .metric-value.negative { color: var(--accent-danger); }
 
-        /* Content Grid */
-        .content-grid {
+        /* Top/Bottom Performers Section */
+        .performers-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             margin-bottom: 40px;
         }
 
-        @media (max-width: 900px) {
-            .content-grid { grid-template-columns: 1fr; }
-        }
-
-        .card {
+        .performer-card {
             background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 28px;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
 
-        .card::after {
+        .performer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .performer-card.best::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(13, 148, 136, 0.05) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-success), #10b981);
+        }
+
+        .performer-card.worst::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-danger), #f87171);
+        }
+
+        .performer-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .performer-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .performer-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .performer-card:hover .performer-name {
+            color: var(--accent-primary);
+            transform: scale(1.03);
+            transform-origin: left;
+        }
+
+        .performer-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .performer-value.positive { color: var(--accent-success); }
+        .performer-value.negative { color: var(--accent-danger); }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
         }
 
         .card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: rgba(13, 148, 136, 0.2);
+            box-shadow: var(--shadow-lg);
         }
 
-        .card:hover::after {
-            opacity: 1;
+        .card.full-width {
+            grid-column: 1 / -1;
         }
 
         .card-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--accent-primary);
             margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 2px;
-        }
-
-        /* Charts */
-        .chart-container {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .pie-chart {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            position: relative;
-            flex-shrink: 0;
+            padding-left: 12px;
+            border-left: 3px solid var(--accent-secondary);
             transition: var(--transition);
         }
 
-        .pie-chart:hover {
+        .card:hover .card-title {
             transform: scale(1.02);
-            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.1));
+            transform-origin: left;
+            padding-left: 16px;
         }
 
-        .chart-legend {
+        /* 3D Pie Chart Styles */
+        .pie-container {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .pie-chart-3d {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .pie-chart-main {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            transform: rotateX(55deg) rotateZ(-10deg);
+            transform-style: preserve-3d;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.15),
+                0 10px 20px rgba(0,0,0,0.1),
+                inset 0 -5px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .pie-chart-3d:hover .pie-chart-main {
+            transform: rotateX(50deg) rotateZ(-5deg) scale(1.05);
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.2),
+                0 15px 30px rgba(0,0,0,0.15),
+                inset 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Pie chart highlight/gloss effect */
+        .pie-chart-main::before {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            width: 35%;
+            height: 25%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            border-radius: 50%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Pie chart depth/side effect */
+        .pie-chart-side {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            top: 15px;
+            left: 0;
+            filter: brightness(0.7);
+            z-index: -1;
+        }
+
+        .pie-chart-bottom {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            top: 25px;
+            left: 0;
+            filter: brightness(0.5);
+            z-index: -2;
+        }
+
+        /* Inner circle for donut effect */
+        .pie-inner-circle {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f7f6 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            box-shadow: 
+                inset 0 2px 10px rgba(0,0,0,0.1),
+                0 -2px 5px rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pie-center-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .legend {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -419,8 +537,8 @@
 
         .legend-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             padding: 8px 12px;
             border-radius: var(--radius-sm);
             transition: var(--transition);
@@ -429,7 +547,12 @@
 
         .legend-item:hover {
             background: var(--bg-hover);
-            transform: translateX(4px);
+            transform: translateX(5px);
+        }
+
+        .legend-item:hover .legend-name {
+            color: var(--accent-primary);
+            transform: scale(1.05);
         }
 
         .legend-left {
@@ -439,20 +562,17 @@
         }
 
         .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .legend-name {
             font-size: 13px;
             font-weight: 500;
             color: var(--text-primary);
-            max-width: 140px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            transition: var(--transition);
         }
 
         .legend-value {
@@ -462,33 +582,138 @@
             color: var(--accent-primary);
         }
 
-        /* Bar Chart */
-        .bar-chart {
+        /* Price vs Cost Chart */
+        .price-cost-chart {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .bar-item {
+        .price-cost-item {
             display: flex;
             align-items: center;
             gap: 16px;
-            transition: var(--transition);
-            padding: 8px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
         }
 
-        .bar-item:hover {
+        .price-cost-label {
+            width: 120px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .price-cost-item:hover .price-cost-label {
+            color: var(--accent-primary);
+            transform: scale(1.03);
+            transform-origin: left;
+        }
+
+        .price-cost-bars {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .price-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-bar-label {
+            width: 80px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .price-bar-track {
+            flex: 1;
+            height: 20px;
             background: var(--bg-hover);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .price-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .price-bar-fill.price {
+            background: linear-gradient(90deg, var(--accent-primary), #14b8a6);
+        }
+
+        .price-bar-fill.cost {
+            background: linear-gradient(90deg, var(--accent-secondary), #f59e0b);
+        }
+
+        .price-bar-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            width: 70px;
+            text-align: right;
+        }
+
+        .margin-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .margin-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .margin-badge.positive {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--accent-success);
+        }
+
+        .margin-badge.negative {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--accent-danger);
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .bar-label {
+            width: 100px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-primary);
-            min-width: 100px;
-            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: var(--transition);
+        }
+
+        .bar-item:hover .bar-label {
+            color: var(--accent-primary);
+            transform: scale(1.05);
+            transform-origin: left;
         }
 
         .bar-track {
@@ -497,36 +722,34 @@
             background: var(--bg-hover);
             border-radius: var(--radius-sm);
             overflow: hidden;
-            position: relative;
         }
 
         .bar-fill {
             height: 100%;
             border-radius: var(--radius-sm);
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .bar-fill.negative {
-            background: linear-gradient(90deg, var(--accent-danger), #f87171);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .bar-fill.positive {
             background: linear-gradient(90deg, var(--accent-success), #34d399);
         }
 
+        .bar-fill.negative {
+            background: linear-gradient(90deg, var(--accent-danger), #f87171);
+        }
+
         .bar-value {
+            width: 90px;
             font-family: 'Space Mono', monospace;
             font-size: 13px;
             font-weight: 600;
-            min-width: 80px;
             text-align: right;
         }
 
-        .bar-value.negative { color: var(--accent-danger); }
         .bar-value.positive { color: var(--accent-success); }
+        .bar-value.negative { color: var(--accent-danger); }
 
-        /* Data Table */
+        /* Data Tables */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -542,6 +765,27 @@
             padding: 12px 12px;
             border-bottom: 2px solid var(--border-color);
             white-space: nowrap;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .data-table th:hover {
+            color: var(--accent-primary);
+            background: var(--bg-hover);
+        }
+
+        .data-table th.sorted {
+            color: var(--accent-primary);
+        }
+
+        .data-table th .sort-icon {
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+
+        .data-table th.sorted .sort-icon {
+            opacity: 1;
         }
 
         .data-table td {
@@ -560,13 +804,16 @@
             background: var(--bg-hover);
         }
 
-        .data-table tbody tr:hover td {
+        .data-table tbody tr:hover .table-name {
             color: var(--accent-primary);
+            transform: scale(1.05);
+            display: inline-block;
         }
 
         .table-name {
             font-weight: 600;
             color: var(--text-primary);
+            transition: var(--transition);
         }
 
         .table-value {
@@ -577,55 +824,45 @@
         .table-value.positive { color: var(--accent-success); }
         .table-value.negative { color: var(--accent-danger); }
 
-        /* Full Width Card */
-        .full-width {
-            grid-column: 1 / -1;
+        .shipments-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, var(--accent-secondary), #f59e0b);
+            color: white;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .shipments-badge::before {
+            content: '📦';
+            font-size: 10px;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 40px 0;
+            padding: 32px;
             color: var(--text-muted);
             font-size: 13px;
         }
 
-        /* Loading State */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px;
-            color: var(--text-secondary);
-        }
-
-        .loading::after {
-            content: '';
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--accent-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 12px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Scroll reveal animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: reveal 0.6s ease forwards;
-        }
-
-        @keyframes reveal {
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .reveal {
+            animation: fadeInUp 0.6s ease forwards;
         }
 
         .reveal:nth-child(1) { animation-delay: 0.1s; }
@@ -633,23 +870,32 @@
         .reveal:nth-child(3) { animation-delay: 0.3s; }
         .reveal:nth-child(4) { animation-delay: 0.4s; }
 
-        /* Shipments highlight */
-        .shipments-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            background: rgba(13, 148, 136, 0.1);
-            color: var(--accent-primary);
-            border-radius: 20px;
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            font-weight: 600;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .performers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .shipments-badge::before {
-            content: '📦';
-            font-size: 11px;
+        @media (max-width: 640px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .performers-grid {
+                grid-template-columns: 1fr;
+            }
+            .pie-container {
+                flex-direction: column;
+            }
+            .view-tabs {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -657,28 +903,27 @@
     <div class="mouse-glow" id="mouseGlow"></div>
     
     <div class="container">
-        <header class="header reveal">
+        <header class="header">
             <h1 class="logo">ENTECH</h1>
-            <p class="subtitle">Metal Sales Dashboard</p>
+            <p class="subtitle">Metal Sales Analytics Dashboard</p>
         </header>
 
-        <div class="period-selector reveal">
+        <div class="period-selector">
             <div class="select-wrapper">
-                <select id="periodSelect">
-                    <option value="">Loading...</option>
-                </select>
+                <select id="periodSelect"></select>
             </div>
             <div class="data-badge" id="dataBadge">
                 <span>DATA AVAILABLE</span>
             </div>
         </div>
 
-        <div class="view-tabs reveal">
+        <div class="view-tabs">
             <button class="view-tab active" data-view="monthly">Monthly</button>
             <button class="view-tab" data-view="quarterly">Quarterly</button>
             <button class="view-tab" data-view="annual">Annual</button>
         </div>
 
+        <!-- Key Metrics -->
         <div class="metrics-grid" id="metricsGrid">
             <div class="metric-card reveal">
                 <div class="metric-label">Total Revenue</div>
@@ -698,59 +943,117 @@
             </div>
         </div>
 
-        <div class="content-grid">
+        <!-- Top/Bottom Performers -->
+        <div class="performers-grid" id="performersGrid">
+            <div class="performer-card best reveal">
+                <div class="performer-icon">🏆</div>
+                <div class="performer-label">Most Profitable Customer</div>
+                <div class="performer-name" id="bestCustomer">-</div>
+                <div class="performer-value positive" id="bestCustomerValue">$0</div>
+            </div>
+            <div class="performer-card worst reveal">
+                <div class="performer-icon">⚠️</div>
+                <div class="performer-label">Least Profitable Customer</div>
+                <div class="performer-name" id="worstCustomer">-</div>
+                <div class="performer-value negative" id="worstCustomerValue">$0</div>
+            </div>
+            <div class="performer-card best reveal">
+                <div class="performer-icon">📈</div>
+                <div class="performer-label">Highest Margin Product</div>
+                <div class="performer-name" id="bestProduct">-</div>
+                <div class="performer-value positive" id="bestProductValue">0%</div>
+            </div>
+            <div class="performer-card worst reveal">
+                <div class="performer-icon">📉</div>
+                <div class="performer-label">Lowest Margin Product</div>
+                <div class="performer-name" id="worstProduct">-</div>
+                <div class="performer-value negative" id="worstProductValue">0%</div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-grid">
             <div class="card reveal">
                 <h2 class="card-title">Revenue by Product</h2>
-                <div class="chart-container">
-                    <div class="pie-chart" id="productPie"></div>
-                    <div class="chart-legend" id="productLegend"></div>
+                <div class="pie-container">
+                    <div class="pie-chart-3d">
+                        <div class="pie-chart-bottom" id="productPieBottom"></div>
+                        <div class="pie-chart-side" id="productPieSide"></div>
+                        <div class="pie-chart-main" id="productPie"></div>
+                        <div class="pie-inner-circle">
+                            <span class="pie-center-text" id="productTotal">$0</span>
+                        </div>
+                    </div>
+                    <div class="legend" id="productLegend"></div>
                 </div>
             </div>
 
             <div class="card reveal">
                 <h2 class="card-title">Revenue by Customer</h2>
-                <div class="chart-container">
-                    <div class="pie-chart" id="customerPie"></div>
-                    <div class="chart-legend" id="customerLegend"></div>
+                <div class="pie-container">
+                    <div class="pie-chart-3d">
+                        <div class="pie-chart-bottom" id="customerPieBottom"></div>
+                        <div class="pie-chart-side" id="customerPieSide"></div>
+                        <div class="pie-chart-main" id="customerPie"></div>
+                        <div class="pie-inner-circle">
+                            <span class="pie-center-text" id="customerTotal">$0</span>
+                        </div>
+                    </div>
+                    <div class="legend" id="customerLegend"></div>
                 </div>
             </div>
+        </div>
 
+        <!-- Price vs Cost Analysis -->
+        <div class="charts-grid">
             <div class="card reveal">
                 <h2 class="card-title">Profit by Product</h2>
                 <div class="bar-chart" id="profitChart"></div>
             </div>
 
             <div class="card reveal">
-                <h2 class="card-title">Product Performance</h2>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Revenue</th>
-                            <th>Shipments</th>
-                            <th>Profit</th>
-                            <th>Margin</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productTable"></tbody>
-                </table>
+                <h2 class="card-title">Price vs Cost Analysis</h2>
+                <div class="price-cost-chart" id="priceCostChart"></div>
             </div>
+        </div>
 
+        <!-- Tables -->
+        <div class="charts-grid">
+            <div class="card full-width reveal">
+                <h2 class="card-title">Product Performance</h2>
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="productTableContainer">
+                        <thead>
+                            <tr>
+                                <th data-sort="name">Product <span class="sort-icon">↕</span></th>
+                                <th data-sort="revenue">Revenue <span class="sort-icon">↕</span></th>
+                                <th data-sort="shipments">Shipments (GT) <span class="sort-icon">↕</span></th>
+                                <th data-sort="profit">Profit <span class="sort-icon">↕</span></th>
+                                <th data-sort="margin">Margin <span class="sort-icon">↕</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
             <div class="card full-width reveal">
                 <h2 class="card-title">Customer Performance</h2>
                 <div style="overflow-x: auto;">
-                    <table class="data-table">
+                    <table class="data-table" id="customerTableContainer">
                         <thead>
                             <tr>
-                                <th>Customer</th>
-                                <th>Revenue</th>
-                                <th>% of Total</th>
-                                <th>Shipments (GT)</th>
-                                <th>Avg Price/GT</th>
-                                <th>Variable Cost/GT</th>
-                                <th>Total Cost/GT</th>
-                                <th>Profit</th>
-                                <th>Margin</th>
+                                <th data-sort="name">Customer <span class="sort-icon">↕</span></th>
+                                <th data-sort="revenue">Revenue <span class="sort-icon">↕</span></th>
+                                <th data-sort="pctOfTotal">% of Total <span class="sort-icon">↕</span></th>
+                                <th data-sort="shipments">Shipments (GT) <span class="sort-icon">↕</span></th>
+                                <th data-sort="avgPrice">Avg Price/GT <span class="sort-icon">↕</span></th>
+                                <th data-sort="variableCostPerGT">Variable Cost/GT <span class="sort-icon">↕</span></th>
+                                <th data-sort="totalCostPerGT">Total Cost/GT <span class="sort-icon">↕</span></th>
+                                <th data-sort="profit">Profit <span class="sort-icon">↕</span></th>
+                                <th data-sort="margin">Margin <span class="sort-icon">↕</span></th>
                             </tr>
                         </thead>
                         <tbody id="customerTable"></tbody>
@@ -765,16 +1068,18 @@
     </div>
 
     <script>
-        // Google Sheets configuration
+        // Configuration
         const SHEET_ID = '2PACX-1vQn0tNOOEJD_zTR351vnZQ75dhN9Inhn7Yz_EnRbil4sIEWfIODpg_l9zZ02BlZ5nSAERlThepNRyO5';
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv&gid=1705716278`;
-        
-        // State
+
         let rawData = [];
         let currentView = 'monthly';
-        let currentPeriod = '';
+        let productSortKey = 'revenue';
+        let productSortDir = 'desc';
+        let customerSortKey = 'revenue';
+        let customerSortDir = 'desc';
 
-        // Colors for charts - Distinct palette (no similar colors next to each other)
+        // Colors for charts - Distinct palette
         const COLORS = [
             '#0d9488', // Teal
             '#f97316', // Orange
@@ -790,30 +1095,11 @@
             '#f59e0b'  // Amber
         ];
 
-        // Mouse glow effect
+        // Mouse glow effect - Enhanced
         const mouseGlow = document.getElementById('mouseGlow');
-        let glowX = 0, glowY = 0, currentX = 0, currentY = 0;
-
         document.addEventListener('mousemove', (e) => {
-            glowX = e.clientX;
-            glowY = e.clientY;
-        });
-
-        function animateGlow() {
-            currentX += (glowX - currentX) * 0.1;
-            currentY += (glowY - currentY) * 0.1;
-            mouseGlow.style.left = currentX + 'px';
-            mouseGlow.style.top = currentY + 'px';
-            requestAnimationFrame(animateGlow);
-        }
-        animateGlow();
-
-        // Card click effects
-        document.querySelectorAll('.metric-card').forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.add('clicked');
-                setTimeout(() => card.classList.remove('clicked'), 400);
-            });
+            mouseGlow.style.left = e.clientX + 'px';
+            mouseGlow.style.top = e.clientY + 'px';
         });
 
         // View tabs
@@ -830,21 +1116,11 @@
         // Parse formatted currency/percentage values
         function parseNumber(value) {
             if (value === null || value === undefined || value === '') return 0;
-            
             let str = String(value).trim();
-            
-            // Check if negative (parentheses format)
             const isNegative = str.includes('(') && str.includes(')');
-            
-            // Remove currency symbols, commas, parentheses, percentage signs, spaces
             str = str.replace(/[$,%\s()]/g, '');
-            
-            // Parse the number
             let num = parseFloat(str) || 0;
-            
-            // Apply negative if it was in parentheses
             if (isNegative) num = -num;
-            
             return num;
         }
 
@@ -860,125 +1136,96 @@
             return sign + '$' + absValue.toFixed(0);
         }
 
-        // Format currency exact (no K/M abbreviation) - for cost per GT
+        // Format currency exact
         function formatCurrencyExact(value) {
             return '$' + value.toFixed(2);
         }
 
         // Format number
         function formatNumber(value) {
-            return new Intl.NumberFormat().format(Math.round(value));
+            return Math.round(value).toLocaleString();
         }
 
         // Parse CSV
         function parseCSV(csv) {
             const lines = csv.split('\n');
             const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-            const data = [];
             
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue;
-                
-                const values = [];
-                let current = '';
-                let inQuotes = false;
-                
-                for (let char of lines[i]) {
-                    if (char === '"') {
-                        inQuotes = !inQuotes;
-                    } else if (char === ',' && !inQuotes) {
-                        values.push(current.trim());
-                        current = '';
+            return lines.slice(1).filter(line => line.trim()).map(line => {
+                const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                const row = {};
+                headers.forEach((header, i) => {
+                    let value = values[i] || '';
+                    value = value.replace(/^"|"$/g, '').trim();
+                    row[header] = value;
+                });
+                return row;
+            });
+        }
+
+        // Get available periods
+        function getAvailablePeriods() {
+            const periods = new Set();
+            rawData.forEach(row => {
+                if (row.Month && row.Year) {
+                    if (currentView === 'monthly') {
+                        periods.add(`${row.Month} ${row.Year}`);
+                    } else if (currentView === 'quarterly') {
+                        const quarter = getQuarter(row.Month);
+                        periods.add(`${quarter} ${row.Year}`);
                     } else {
-                        current += char;
+                        periods.add(row.Year);
                     }
                 }
-                values.push(current.trim());
-                
-                const row = {};
-                headers.forEach((header, index) => {
-                    row[header] = values[index] || '';
-                });
-                
-                if (row['Customer'] && row['Month'] && row['Year']) {
-                    data.push(row);
-                }
-            }
-            
-            return data;
+            });
+            return Array.from(periods).sort((a, b) => {
+                const [aP, aY] = a.split(' ');
+                const [bP, bY] = b.split(' ');
+                if (aY !== bY) return parseInt(bY) - parseInt(aY);
+                return getMonthOrder(bP) - getMonthOrder(aP);
+            });
         }
 
-        // Get quarter from month
         function getQuarter(month) {
-            const quarters = {
-                'January': 'Q1', 'February': 'Q1', 'March': 'Q1',
-                'April': 'Q2', 'May': 'Q2', 'June': 'Q2',
-                'July': 'Q3', 'August': 'Q3', 'September': 'Q3',
-                'October': 'Q4', 'November': 'Q4', 'December': 'Q4'
-            };
-            return quarters[month] || '';
+            const q1 = ['January', 'February', 'March'];
+            const q2 = ['April', 'May', 'June'];
+            const q3 = ['July', 'August', 'September'];
+            if (q1.includes(month)) return 'Q1';
+            if (q2.includes(month)) return 'Q2';
+            if (q3.includes(month)) return 'Q3';
+            return 'Q4';
         }
 
-        // Update period options
+        function getMonthOrder(period) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+            if (months.includes(period)) return months.indexOf(period);
+            if (quarters.includes(period)) return quarters.indexOf(period);
+            return 0;
+        }
+
+        // Update period dropdown
         function updatePeriodOptions() {
             const select = document.getElementById('periodSelect');
-            const periods = new Set();
-            
-            rawData.forEach(row => {
-                const year = row['Year'];
-                const month = row['Month'];
-                
-                if (currentView === 'monthly') {
-                    periods.add(`${month} ${year}`);
-                } else if (currentView === 'quarterly') {
-                    const quarter = getQuarter(month);
-                    periods.add(`${quarter} ${year}`);
-                } else {
-                    periods.add(year);
-                }
-            });
-            
-            const sortedPeriods = Array.from(periods).sort((a, b) => {
-                const [partA, yearA] = a.split(' ');
-                const [partB, yearB] = b.split(' ');
-                if (yearA !== yearB) return yearB - yearA;
-                
-                if (currentView === 'quarterly') {
-                    return partB.localeCompare(partA);
-                }
-                const months = ['December', 'November', 'October', 'September', 'August', 'July', 
-                               'June', 'May', 'April', 'March', 'February', 'January'];
-                return months.indexOf(partA) - months.indexOf(partB);
-            });
-            
-            select.innerHTML = sortedPeriods.map(p => `<option value="${p}">${p}</option>`).join('');
-            
-            if (!currentPeriod || !sortedPeriods.includes(currentPeriod)) {
-                currentPeriod = sortedPeriods[0] || '';
-            }
-            select.value = currentPeriod;
-            
-            select.onchange = () => {
-                currentPeriod = select.value;
-                updateDashboard();
-            };
+            const periods = getAvailablePeriods();
+            select.innerHTML = periods.map(p => `<option value="${p}">${p}</option>`).join('');
+            select.onchange = updateDashboard;
         }
 
-        // Filter data by period
+        // Filter data by selected period
         function filterData() {
-            if (!currentPeriod) return [];
+            const selected = document.getElementById('periodSelect').value;
+            if (!selected) return [];
             
             return rawData.filter(row => {
-                const year = row['Year'];
-                const month = row['Month'];
-                
                 if (currentView === 'monthly') {
-                    return `${month} ${year}` === currentPeriod;
+                    return `${row.Month} ${row.Year}` === selected;
                 } else if (currentView === 'quarterly') {
-                    const quarter = getQuarter(month);
-                    return `${quarter} ${year}` === currentPeriod;
+                    const quarter = getQuarter(row.Month);
+                    return `${quarter} ${row.Year}` === selected;
                 } else {
-                    return year === currentPeriod;
+                    return row.Year === selected;
                 }
             });
         }
@@ -1010,12 +1257,10 @@
                 aggregated[name].revenue += revenue;
                 aggregated[name].shipments += shipments;
                 aggregated[name].profit += profit;
-                // For weighted average: sum of (shipments * cost)
                 aggregated[name].variableCostWeighted += shipments * variableCost;
                 aggregated[name].totalCostWeighted += shipments * totalCost;
             });
             
-            // Calculate total revenue for percentage
             const totalRevenue = Object.values(aggregated).reduce((sum, item) => sum + item.revenue, 0);
             
             return Object.entries(aggregated)
@@ -1034,14 +1279,17 @@
                 .sort((a, b) => b.revenue - a.revenue);
         }
 
-        // Create pie chart
-        function createPieChart(container, data, legendContainer) {
+        // Create 3D Pie Chart
+        function create3DPieChart(mainEl, sideEl, bottomEl, centerEl, data, legendContainer) {
             if (data.length === 0) {
-                container.style.background = '#f1f5f9';
-                legendContainer.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">No data available</p>';
+                mainEl.style.background = 'var(--bg-hover)';
+                sideEl.style.background = 'var(--bg-hover)';
+                bottomEl.style.background = 'var(--bg-hover)';
+                centerEl.textContent = '$0';
+                legendContainer.innerHTML = '<p style="color: var(--text-muted);">No data</p>';
                 return;
             }
-            
+
             const total = data.reduce((sum, item) => sum + item.revenue, 0);
             let gradient = 'conic-gradient(';
             let currentAngle = 0;
@@ -1054,7 +1302,12 @@
             });
             
             gradient = gradient.slice(0, -2) + ')';
-            container.style.background = gradient;
+            mainEl.style.background = gradient;
+            sideEl.style.background = gradient;
+            bottomEl.style.background = gradient;
+            
+            // Center total
+            centerEl.textContent = formatCurrency(total);
             
             // Legend
             legendContainer.innerHTML = data.slice(0, 8).map((item, index) => `
@@ -1096,17 +1349,90 @@
             }).join('');
         }
 
-        // Create data table
-        function createTable(container, data, isCustomerTable = false) {
+        // Create Price vs Cost Chart
+        function createPriceCostChart(container, data) {
+            if (data.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); padding: 20px; text-align: center;">No data available</p>';
+                return;
+            }
+
+            const maxValue = Math.max(...data.flatMap(d => [d.avgPrice, d.totalCostPerGT]));
+
+            container.innerHTML = data.slice(0, 5).map(item => {
+                const priceWidth = maxValue > 0 ? (item.avgPrice / maxValue) * 100 : 0;
+                const costWidth = maxValue > 0 ? (item.totalCostPerGT / maxValue) * 100 : 0;
+                const spread = item.avgPrice - item.totalCostPerGT;
+                const spreadPct = item.avgPrice > 0 ? (spread / item.avgPrice) * 100 : 0;
+                const isProfit = spread >= 0;
+
+                return `
+                    <div class="price-cost-item">
+                        <span class="price-cost-label">${item.name}</span>
+                        <div class="price-cost-bars">
+                            <div class="price-bar-row">
+                                <span class="price-bar-label">Sell Price</span>
+                                <div class="price-bar-track">
+                                    <div class="price-bar-fill price" style="width: ${priceWidth}%"></div>
+                                </div>
+                                <span class="price-bar-value">${formatCurrencyExact(item.avgPrice)}</span>
+                            </div>
+                            <div class="price-bar-row">
+                                <span class="price-bar-label">Total Cost</span>
+                                <div class="price-bar-track">
+                                    <div class="price-bar-fill cost" style="width: ${costWidth}%"></div>
+                                </div>
+                                <span class="price-bar-value">${formatCurrencyExact(item.totalCostPerGT)}</span>
+                            </div>
+                            <div class="margin-indicator">
+                                <span class="margin-badge ${isProfit ? 'positive' : 'negative'}">
+                                    ${isProfit ? '+' : ''}${formatCurrencyExact(spread)}/GT (${spreadPct.toFixed(1)}%)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Sort data
+        function sortData(data, key, direction) {
+            return [...data].sort((a, b) => {
+                let aVal = a[key];
+                let bVal = b[key];
+                if (typeof aVal === 'string') {
+                    return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                return direction === 'asc' ? aVal - bVal : bVal - aVal;
+            });
+        }
+
+        // Create data table with sorting
+        function createTable(container, tableId, data, isCustomerTable = false) {
             if (data.length === 0) {
                 const colSpan = isCustomerTable ? 9 : 5;
                 container.innerHTML = `<tr><td colspan="${colSpan}" style="text-align: center; color: var(--text-muted); padding: 30px;">No data available</td></tr>`;
                 return;
             }
             
+            // Sort data
+            const sortKey = isCustomerTable ? customerSortKey : productSortKey;
+            const sortDir = isCustomerTable ? customerSortDir : productSortDir;
+            const sortedData = sortData(data, sortKey, sortDir);
+            
+            // Update header styles
+            const table = document.getElementById(tableId);
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sorted');
+                const icon = th.querySelector('.sort-icon');
+                if (icon) icon.textContent = '↕';
+                if (th.dataset.sort === sortKey) {
+                    th.classList.add('sorted');
+                    if (icon) icon.textContent = sortDir === 'asc' ? '↑' : '↓';
+                }
+            });
+            
             if (isCustomerTable) {
-                // Expanded customer table with cost columns
-                container.innerHTML = data.map(item => {
+                container.innerHTML = sortedData.map(item => {
                     const marginClass = item.margin >= 0 ? 'positive' : 'negative';
                     const profitClass = item.profit >= 0 ? 'positive' : 'negative';
                     const profitFormatted = item.profit < 0 
@@ -1130,8 +1456,7 @@
                     `;
                 }).join('');
             } else {
-                // Product performance table (simpler)
-                container.innerHTML = data.map(item => {
+                container.innerHTML = sortedData.map(item => {
                     const marginClass = item.margin >= 0 ? 'positive' : 'negative';
                     const profitClass = item.profit >= 0 ? 'positive' : 'negative';
                     const profitFormatted = item.profit < 0 
@@ -1150,6 +1475,70 @@
                         </tr>
                     `;
                 }).join('');
+            }
+        }
+
+        // Setup table sorting
+        function setupTableSorting() {
+            // Product table sorting
+            document.querySelectorAll('#productTableContainer th[data-sort]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const key = th.dataset.sort;
+                    if (productSortKey === key) {
+                        productSortDir = productSortDir === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        productSortKey = key;
+                        productSortDir = 'desc';
+                    }
+                    updateDashboard();
+                });
+            });
+
+            // Customer table sorting
+            document.querySelectorAll('#customerTableContainer th[data-sort]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const key = th.dataset.sort;
+                    if (customerSortKey === key) {
+                        customerSortDir = customerSortDir === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        customerSortKey = key;
+                        customerSortDir = 'desc';
+                    }
+                    updateDashboard();
+                });
+            });
+        }
+
+        // Update Top/Bottom Performers
+        function updatePerformers(productData, customerData) {
+            // Best/Worst Customer by Profit
+            if (customerData.length > 0) {
+                const sortedByProfit = [...customerData].sort((a, b) => b.profit - a.profit);
+                const best = sortedByProfit[0];
+                const worst = sortedByProfit[sortedByProfit.length - 1];
+                
+                document.getElementById('bestCustomer').textContent = best.name;
+                document.getElementById('bestCustomerValue').textContent = formatCurrency(best.profit);
+                document.getElementById('bestCustomerValue').className = 'performer-value ' + (best.profit >= 0 ? 'positive' : 'negative');
+                
+                document.getElementById('worstCustomer').textContent = worst.name;
+                document.getElementById('worstCustomerValue').textContent = formatCurrency(worst.profit);
+                document.getElementById('worstCustomerValue').className = 'performer-value ' + (worst.profit >= 0 ? 'positive' : 'negative');
+            }
+
+            // Best/Worst Product by Margin
+            if (productData.length > 0) {
+                const sortedByMargin = [...productData].sort((a, b) => b.margin - a.margin);
+                const bestP = sortedByMargin[0];
+                const worstP = sortedByMargin[sortedByMargin.length - 1];
+                
+                document.getElementById('bestProduct').textContent = bestP.name;
+                document.getElementById('bestProductValue').textContent = bestP.margin.toFixed(1) + '%';
+                document.getElementById('bestProductValue').className = 'performer-value ' + (bestP.margin >= 0 ? 'positive' : 'negative');
+                
+                document.getElementById('worstProduct').textContent = worstP.name;
+                document.getElementById('worstProductValue').textContent = worstP.margin.toFixed(1) + '%';
+                document.getElementById('worstProductValue').className = 'performer-value ' + (worstP.margin >= 0 ? 'positive' : 'negative');
             }
         }
 
@@ -1198,24 +1587,37 @@
             const productData = aggregateData(data, 'Product');
             const customerData = aggregateData(data, 'Customer');
             
-            // Update charts
-            createPieChart(
+            // Update performers
+            updatePerformers(productData, customerData);
+            
+            // Update 3D pie charts
+            create3DPieChart(
                 document.getElementById('productPie'),
+                document.getElementById('productPieSide'),
+                document.getElementById('productPieBottom'),
+                document.getElementById('productTotal'),
                 productData,
                 document.getElementById('productLegend')
             );
             
-            createPieChart(
+            create3DPieChart(
                 document.getElementById('customerPie'),
+                document.getElementById('customerPieSide'),
+                document.getElementById('customerPieBottom'),
+                document.getElementById('customerTotal'),
                 customerData,
                 document.getElementById('customerLegend')
             );
             
+            // Update bar chart
             createBarChart(document.getElementById('profitChart'), productData);
             
+            // Update Price vs Cost chart
+            createPriceCostChart(document.getElementById('priceCostChart'), customerData);
+            
             // Update tables
-            createTable(document.getElementById('productTable'), productData, false);
-            createTable(document.getElementById('customerTable'), customerData, true);
+            createTable(document.getElementById('productTable'), 'productTableContainer', productData, false);
+            createTable(document.getElementById('customerTable'), 'customerTableContainer', customerData, true);
         }
 
         // Load data
@@ -1225,6 +1627,7 @@
                 const csv = await response.text();
                 rawData = parseCSV(csv);
                 
+                setupTableSorting();
                 updatePeriodOptions();
                 updateDashboard();
             } catch (error) {
