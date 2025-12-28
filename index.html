@@ -42,6 +42,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            font-size: 16px; /* Base size increased */
         }
 
         /* Subtle background pattern */
@@ -60,7 +61,7 @@
             z-index: 0;
         }
 
-        /* Enhanced Mouse glow effect - BRIGHTER & LARGER */
+        /* Enhanced Mouse glow effect */
         .mouse-glow {
             position: fixed;
             width: 600px;
@@ -79,7 +80,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             padding: 40px 24px;
             position: relative;
@@ -94,7 +95,7 @@
 
         .logo {
             font-family: 'Space Mono', monospace;
-            font-size: 42px;
+            font-size: 52px; /* Increased from 42px */
             font-weight: 700;
             letter-spacing: 12px;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
@@ -111,7 +112,7 @@
         }
 
         .subtitle {
-            font-size: 14px;
+            font-size: 18px; /* Increased from 14px */
             letter-spacing: 4px;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -136,14 +137,14 @@
             background: var(--bg-card);
             border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 14px 48px 14px 20px;
+            padding: 16px 52px 16px 24px;
             font-family: 'DM Sans', sans-serif;
-            font-size: 16px;
+            font-size: 18px; /* Increased */
             font-weight: 600;
             color: var(--text-primary);
             cursor: pointer;
             transition: var(--transition);
-            min-width: 180px;
+            min-width: 200px;
         }
 
         .select-wrapper select:hover {
@@ -160,10 +161,10 @@
         .select-wrapper::after {
             content: '▼';
             position: absolute;
-            right: 18px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 10px;
+            font-size: 12px;
             color: var(--text-secondary);
             pointer-events: none;
         }
@@ -171,12 +172,12 @@
         .data-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+            gap: 10px;
+            padding: 12px 24px;
             background: linear-gradient(135deg, var(--accent-success), #059669);
             color: white;
             border-radius: 50px;
-            font-size: 13px;
+            font-size: 15px; /* Increased */
             font-weight: 600;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
@@ -184,8 +185,8 @@
 
         .data-badge::before {
             content: '';
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: white;
             border-radius: 50%;
             animation: pulse 2s infinite;
@@ -205,12 +206,12 @@
         }
 
         .view-tab {
-            padding: 14px 32px;
+            padding: 16px 36px;
             border: 2px solid var(--border-color);
             background: var(--bg-card);
             color: var(--text-secondary);
             font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
+            font-size: 16px; /* Increased */
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -222,7 +223,7 @@
         .view-tab:hover {
             border-color: var(--accent-primary);
             color: var(--accent-primary);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: var(--shadow-md);
         }
 
@@ -244,7 +245,7 @@
         .metric-card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
-            padding: 28px;
+            padding: 32px;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -274,17 +275,13 @@
             opacity: 1;
         }
 
-        .metric-card:active {
-            transform: translateY(-3px) scale(0.99);
-        }
-
         .metric-label {
-            font-size: 11px;
+            font-size: 14px; /* Increased from 11px */
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             transition: var(--transition);
         }
 
@@ -296,10 +293,15 @@
 
         .metric-value {
             font-family: 'Space Mono', monospace;
-            font-size: 32px;
+            font-size: 38px; /* Increased from 32px */
             font-weight: 700;
             color: var(--text-primary);
             transition: var(--transition);
+        }
+
+        .metric-card:hover .metric-value {
+            transform: scale(1.05);
+            transform-origin: left;
         }
 
         .metric-value.positive { color: var(--accent-success); }
@@ -316,7 +318,7 @@
         .performer-card {
             background: var(--bg-card);
             border-radius: var(--radius-md);
-            padding: 20px;
+            padding: 24px;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -350,37 +352,49 @@
         }
 
         .performer-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 28px; /* Increased */
+            margin-bottom: 10px;
         }
 
         .performer-label {
-            font-size: 10px;
+            font-size: 12px; /* Increased from 10px */
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .performer-card:hover .performer-label {
+            transform: scale(1.05);
+            transform-origin: left;
         }
 
         .performer-name {
-            font-size: 16px;
+            font-size: 18px; /* Increased from 16px */
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             transition: var(--transition);
         }
 
         .performer-card:hover .performer-name {
             color: var(--accent-primary);
-            transform: scale(1.03);
+            transform: scale(1.05);
             transform-origin: left;
         }
 
         .performer-value {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: 16px; /* Increased from 14px */
             font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .performer-card:hover .performer-value {
+            transform: scale(1.05);
+            transform-origin: left;
         }
 
         .performer-value.positive { color: var(--accent-success); }
@@ -397,7 +411,7 @@
         .card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
-            padding: 28px;
+            padding: 32px;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -412,134 +426,100 @@
         }
 
         .card-title {
-            font-size: 13px;
+            font-size: 16px; /* Increased from 13px */
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--accent-primary);
-            margin-bottom: 24px;
-            padding-left: 12px;
-            border-left: 3px solid var(--accent-secondary);
+            margin-bottom: 28px;
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-secondary);
             transition: var(--transition);
         }
 
         .card:hover .card-title {
             transform: scale(1.02);
             transform-origin: left;
-            padding-left: 16px;
+            padding-left: 18px;
         }
 
-        /* 3D Pie Chart Styles */
+        /* Simple 3D Pie Chart - Clean circle with shadow */
         .pie-container {
             display: flex;
-            align-items: center;
-            gap: 32px;
+            align-items: flex-start;
+            gap: 36px;
         }
 
-        .pie-chart-3d {
+        .pie-chart-wrapper {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             flex-shrink: 0;
         }
 
-        .pie-chart-main {
-            width: 200px;
-            height: 200px;
+        .pie-chart {
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             position: relative;
-            transform: rotateX(55deg) rotateZ(-10deg);
-            transform-style: preserve-3d;
             box-shadow: 
-                0 20px 40px rgba(0,0,0,0.15),
-                0 10px 20px rgba(0,0,0,0.1),
-                inset 0 -5px 20px rgba(0,0,0,0.1);
+                0 8px 24px rgba(0,0,0,0.15),
+                0 4px 8px rgba(0,0,0,0.1),
+                inset 0 2px 4px rgba(255,255,255,0.2);
             transition: var(--transition);
         }
 
-        .pie-chart-3d:hover .pie-chart-main {
-            transform: rotateX(50deg) rotateZ(-5deg) scale(1.05);
+        .pie-chart-wrapper:hover .pie-chart {
+            transform: scale(1.03);
             box-shadow: 
-                0 30px 60px rgba(0,0,0,0.2),
-                0 15px 30px rgba(0,0,0,0.15),
-                inset 0 -5px 20px rgba(0,0,0,0.1);
+                0 12px 32px rgba(0,0,0,0.2),
+                0 6px 12px rgba(0,0,0,0.12),
+                inset 0 2px 4px rgba(255,255,255,0.2);
         }
 
-        /* Pie chart highlight/gloss effect */
-        .pie-chart-main::before {
-            content: '';
+        /* Donut hole */
+        .pie-center {
             position: absolute;
-            top: 5%;
-            left: 10%;
-            width: 35%;
-            height: 25%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
-            border-radius: 50%;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        /* Pie chart depth/side effect */
-        .pie-chart-side {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            top: 15px;
-            left: 0;
-            filter: brightness(0.7);
-            z-index: -1;
-        }
-
-        .pie-chart-bottom {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            top: 25px;
-            left: 0;
-            filter: brightness(0.5);
-            z-index: -2;
-        }
-
-        /* Inner circle for donut effect */
-        .pie-inner-circle {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(180deg, #ffffff 0%, #f5f7f6 100%);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 5;
-            box-shadow: 
-                inset 0 2px 10px rgba(0,0,0,0.1),
-                0 -2px 5px rgba(255,255,255,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 5;
         }
 
         .pie-center-text {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: 16px; /* Increased */
             font-weight: 700;
             color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .pie-chart-wrapper:hover .pie-center-text {
+            transform: scale(1.1);
         }
 
         .legend {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .legend-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 10px 14px;
             border-radius: var(--radius-sm);
             transition: var(--transition);
             cursor: pointer;
@@ -550,26 +530,26 @@
             transform: translateX(5px);
         }
 
-        .legend-item:hover .legend-name {
-            color: var(--accent-primary);
+        .legend-item:hover .legend-name,
+        .legend-item:hover .legend-value {
             transform: scale(1.05);
         }
 
         .legend-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .legend-color {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .legend-name {
-            font-size: 13px;
+            font-size: 15px; /* Increased from 13px */
             font-weight: 500;
             color: var(--text-primary);
             transition: var(--transition);
@@ -577,62 +557,100 @@
 
         .legend-value {
             font-family: 'Space Mono', monospace;
-            font-size: 13px;
+            font-size: 15px; /* Increased from 13px */
             font-weight: 600;
             color: var(--accent-primary);
+            transition: var(--transition);
         }
 
         /* Price vs Cost Chart */
         .price-cost-chart {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .price-cost-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
         }
 
-        .price-cost-label {
-            width: 120px;
-            font-size: 13px;
+        .price-cost-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .price-cost-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .price-cost-name {
+            font-size: 16px; /* Increased */
             font-weight: 600;
             color: var(--text-primary);
             transition: var(--transition);
         }
 
-        .price-cost-item:hover .price-cost-label {
+        .price-cost-item:hover .price-cost-name {
             color: var(--accent-primary);
             transform: scale(1.03);
-            transform-origin: left;
+        }
+
+        .price-cost-margin {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .price-cost-item:hover .price-cost-margin {
+            transform: scale(1.05);
+        }
+
+        .price-cost-margin.positive {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--accent-success);
+        }
+
+        .price-cost-margin.negative {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--accent-danger);
         }
 
         .price-cost-bars {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .price-bar-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .price-bar-label {
-            width: 80px;
-            font-size: 10px;
+            width: 90px;
+            font-size: 12px; /* Increased */
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .price-cost-item:hover .price-bar-label {
+            transform: scale(1.03);
         }
 
         .price-bar-track {
             flex: 1;
-            height: 20px;
+            height: 24px;
             background: var(--bg-hover);
             border-radius: 4px;
             overflow: hidden;
@@ -655,53 +673,40 @@
 
         .price-bar-value {
             font-family: 'Space Mono', monospace;
-            font-size: 12px;
+            font-size: 14px; /* Increased */
             font-weight: 600;
-            width: 70px;
+            width: 90px;
             text-align: right;
+            transition: var(--transition);
         }
 
-        .margin-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .margin-badge {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .margin-badge.positive {
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--accent-success);
-        }
-
-        .margin-badge.negative {
-            background: rgba(220, 38, 38, 0.1);
-            color: var(--accent-danger);
+        .price-cost-item:hover .price-bar-value {
+            transform: scale(1.05);
         }
 
         /* Bar Chart */
         .bar-chart {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
         .bar-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            padding: 6px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .bar-item:hover {
+            background: var(--bg-hover);
         }
 
         .bar-label {
-            width: 100px;
-            font-size: 13px;
+            width: 110px;
+            font-size: 15px; /* Increased */
             font-weight: 500;
             color: var(--text-primary);
             white-space: nowrap;
@@ -718,7 +723,7 @@
 
         .bar-track {
             flex: 1;
-            height: 28px;
+            height: 32px;
             background: var(--bg-hover);
             border-radius: var(--radius-sm);
             overflow: hidden;
@@ -739,30 +744,39 @@
         }
 
         .bar-value {
-            width: 90px;
+            width: 100px;
             font-family: 'Space Mono', monospace;
-            font-size: 13px;
+            font-size: 15px; /* Increased */
             font-weight: 600;
             text-align: right;
+            transition: var(--transition);
+        }
+
+        .bar-item:hover .bar-value {
+            transform: scale(1.05);
         }
 
         .bar-value.positive { color: var(--accent-success); }
         .bar-value.negative { color: var(--accent-danger); }
 
         /* Data Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
         .data-table {
             width: 100%;
             border-collapse: collapse;
         }
 
         .data-table th {
-            font-size: 10px;
+            font-size: 12px; /* Increased from 10px */
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             color: var(--text-secondary);
             text-align: left;
-            padding: 12px 12px;
+            padding: 14px 14px;
             border-bottom: 2px solid var(--border-color);
             white-space: nowrap;
             cursor: pointer;
@@ -773,6 +787,7 @@
         .data-table th:hover {
             color: var(--accent-primary);
             background: var(--bg-hover);
+            transform: scale(1.02);
         }
 
         .data-table th.sorted {
@@ -789,8 +804,8 @@
         }
 
         .data-table td {
-            padding: 14px 12px;
-            font-size: 13px;
+            padding: 16px 14px;
+            font-size: 15px; /* Increased from 13px */
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition);
             white-space: nowrap;
@@ -802,6 +817,10 @@
 
         .data-table tbody tr:hover {
             background: var(--bg-hover);
+        }
+
+        .data-table tbody tr:hover td {
+            transform: scale(1.02);
         }
 
         .data-table tbody tr:hover .table-name {
@@ -819,6 +838,11 @@
         .table-value {
             font-family: 'Space Mono', monospace;
             font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .data-table tbody tr:hover .table-value {
+            transform: scale(1.03);
         }
 
         .table-value.positive { color: var(--accent-success); }
@@ -827,26 +851,31 @@
         .shipments-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
+            gap: 5px;
+            padding: 5px 12px;
             background: linear-gradient(135deg, var(--accent-secondary), #f59e0b);
             color: white;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 13px; /* Increased */
             font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .data-table tbody tr:hover .shipments-badge {
+            transform: scale(1.05);
         }
 
         .shipments-badge::before {
             content: '📦';
-            font-size: 10px;
+            font-size: 11px;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 32px;
+            padding: 36px;
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 15px; /* Increased */
         }
 
         /* Animations */
@@ -976,11 +1005,9 @@
             <div class="card reveal">
                 <h2 class="card-title">Revenue by Product</h2>
                 <div class="pie-container">
-                    <div class="pie-chart-3d">
-                        <div class="pie-chart-bottom" id="productPieBottom"></div>
-                        <div class="pie-chart-side" id="productPieSide"></div>
-                        <div class="pie-chart-main" id="productPie"></div>
-                        <div class="pie-inner-circle">
+                    <div class="pie-chart-wrapper">
+                        <div class="pie-chart" id="productPie"></div>
+                        <div class="pie-center">
                             <span class="pie-center-text" id="productTotal">$0</span>
                         </div>
                     </div>
@@ -991,11 +1018,9 @@
             <div class="card reveal">
                 <h2 class="card-title">Revenue by Customer</h2>
                 <div class="pie-container">
-                    <div class="pie-chart-3d">
-                        <div class="pie-chart-bottom" id="customerPieBottom"></div>
-                        <div class="pie-chart-side" id="customerPieSide"></div>
-                        <div class="pie-chart-main" id="customerPie"></div>
-                        <div class="pie-inner-circle">
+                    <div class="pie-chart-wrapper">
+                        <div class="pie-chart" id="customerPie"></div>
+                        <div class="pie-center">
                             <span class="pie-center-text" id="customerTotal">$0</span>
                         </div>
                     </div>
@@ -1004,7 +1029,7 @@
             </div>
         </div>
 
-        <!-- Price vs Cost Analysis -->
+        <!-- Profit & Price vs Cost -->
         <div class="charts-grid">
             <div class="card reveal">
                 <h2 class="card-title">Profit by Product</h2>
@@ -1012,7 +1037,7 @@
             </div>
 
             <div class="card reveal">
-                <h2 class="card-title">Price vs Cost Analysis</h2>
+                <h2 class="card-title">Price vs Cost per GT (by Customer)</h2>
                 <div class="price-cost-chart" id="priceCostChart"></div>
             </div>
         </div>
@@ -1021,13 +1046,14 @@
         <div class="charts-grid">
             <div class="card full-width reveal">
                 <h2 class="card-title">Product Performance</h2>
-                <div style="overflow-x: auto;">
+                <div class="table-container">
                     <table class="data-table" id="productTableContainer">
                         <thead>
                             <tr>
                                 <th data-sort="name">Product <span class="sort-icon">↕</span></th>
                                 <th data-sort="revenue">Revenue <span class="sort-icon">↕</span></th>
                                 <th data-sort="shipments">Shipments (GT) <span class="sort-icon">↕</span></th>
+                                <th data-sort="avgPrice">Avg Price/GT <span class="sort-icon">↕</span></th>
                                 <th data-sort="profit">Profit <span class="sort-icon">↕</span></th>
                                 <th data-sort="margin">Margin <span class="sort-icon">↕</span></th>
                             </tr>
@@ -1041,7 +1067,7 @@
         <div class="charts-grid">
             <div class="card full-width reveal">
                 <h2 class="card-title">Customer Performance</h2>
-                <div style="overflow-x: auto;">
+                <div class="table-container">
                     <table class="data-table" id="customerTableContainer">
                         <thead>
                             <tr>
@@ -1079,23 +1105,14 @@
         let customerSortKey = 'revenue';
         let customerSortDir = 'desc';
 
-        // Colors for charts - Distinct palette
+        // Colors for charts
         const COLORS = [
-            '#0d9488', // Teal
-            '#f97316', // Orange
-            '#3b82f6', // Blue
-            '#a855f7', // Purple
-            '#ec4899', // Pink
-            '#eab308', // Yellow
-            '#ef4444', // Red
-            '#06b6d4', // Cyan
-            '#84cc16', // Lime
-            '#8b5cf6', // Violet
-            '#14b8a6', // Teal light
-            '#f59e0b'  // Amber
+            '#0d9488', '#f97316', '#3b82f6', '#a855f7', '#ec4899', 
+            '#eab308', '#ef4444', '#06b6d4', '#84cc16', '#8b5cf6',
+            '#14b8a6', '#f59e0b', '#6366f1', '#10b981', '#f472b6'
         ];
 
-        // Mouse glow effect - Enhanced
+        // Mouse glow effect
         const mouseGlow = document.getElementById('mouseGlow');
         document.addEventListener('mousemove', (e) => {
             mouseGlow.style.left = e.clientX + 'px';
@@ -1136,9 +1153,10 @@
             return sign + '$' + absValue.toFixed(0);
         }
 
-        // Format currency exact
+        // Format currency exact (for per GT values)
         function formatCurrencyExact(value) {
-            return '$' + value.toFixed(2);
+            if (value === 0 || isNaN(value)) return '$0.00';
+            return '$' + Math.abs(value).toFixed(2);
         }
 
         // Format number
@@ -1146,21 +1164,44 @@
             return Math.round(value).toLocaleString();
         }
 
-        // Parse CSV
+        // Improved CSV Parser - handles quoted fields properly
         function parseCSV(csv) {
             const lines = csv.split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            const headers = parseCSVLine(lines[0]);
+            
+            console.log('CSV Headers:', headers);
             
             return lines.slice(1).filter(line => line.trim()).map(line => {
-                const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                const values = parseCSVLine(line);
                 const row = {};
                 headers.forEach((header, i) => {
-                    let value = values[i] || '';
-                    value = value.replace(/^"|"$/g, '').trim();
-                    row[header] = value;
+                    row[header] = values[i] || '';
                 });
                 return row;
             });
+        }
+
+        // Parse a single CSV line, handling quoted fields
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            
+            return result;
         }
 
         // Get available periods
@@ -1230,9 +1271,15 @@
             });
         }
 
-        // Aggregate data
+        // Aggregate data by key (Product or Customer)
         function aggregateData(data, key) {
             const aggregated = {};
+            
+            // Debug: log first row to see column names
+            if (data.length > 0) {
+                console.log('Sample row keys:', Object.keys(data[0]));
+                console.log('Sample row:', data[0]);
+            }
             
             data.forEach(row => {
                 const name = row[key];
@@ -1248,11 +1295,12 @@
                     };
                 }
                 
-                const revenue = parseNumber(row['Revenue']);
-                const shipments = parseNumber(row['Shipments (GT.)']);
-                const profit = parseNumber(row['Profit']);
-                const variableCost = parseNumber(row['Product total variable cost/GT']);
-                const totalCost = parseNumber(row['Product total cost/GT']);
+                // Get values - try multiple possible column names
+                const revenue = parseNumber(row['Revenue'] || row['revenue'] || 0);
+                const shipments = parseNumber(row['Shipments (GT.)'] || row['Shipments'] || row['shipments'] || 0);
+                const profit = parseNumber(row['Profit'] || row['profit'] || 0);
+                const variableCost = parseNumber(row['Product total variable cost/GT'] || row['Variable Cost/GT'] || 0);
+                const totalCost = parseNumber(row['Product total cost/GT'] || row['Total Cost/GT'] || 0);
                 
                 aggregated[name].revenue += revenue;
                 aggregated[name].shipments += shipments;
@@ -1264,29 +1312,27 @@
             const totalRevenue = Object.values(aggregated).reduce((sum, item) => sum + item.revenue, 0);
             
             return Object.entries(aggregated)
-                .map(([name, data]) => ({
+                .map(([name, d]) => ({
                     name,
-                    revenue: data.revenue,
-                    pctOfTotal: totalRevenue > 0 ? (data.revenue / totalRevenue) * 100 : 0,
-                    shipments: data.shipments,
-                    avgPrice: data.shipments > 0 ? data.revenue / data.shipments : 0,
-                    variableCostPerGT: data.shipments > 0 ? data.variableCostWeighted / data.shipments : 0,
-                    totalCostPerGT: data.shipments > 0 ? data.totalCostWeighted / data.shipments : 0,
-                    profit: data.profit,
-                    margin: data.revenue > 0 ? (data.profit / data.revenue) * 100 : 0
+                    revenue: d.revenue,
+                    pctOfTotal: totalRevenue > 0 ? (d.revenue / totalRevenue) * 100 : 0,
+                    shipments: d.shipments,
+                    avgPrice: d.shipments > 0 ? d.revenue / d.shipments : 0,
+                    variableCostPerGT: d.shipments > 0 ? d.variableCostWeighted / d.shipments : 0,
+                    totalCostPerGT: d.shipments > 0 ? d.totalCostWeighted / d.shipments : 0,
+                    profit: d.profit,
+                    margin: d.revenue > 0 ? (d.profit / d.revenue) * 100 : 0
                 }))
                 .filter(item => item.revenue > 0)
                 .sort((a, b) => b.revenue - a.revenue);
         }
 
-        // Create 3D Pie Chart
-        function create3DPieChart(mainEl, sideEl, bottomEl, centerEl, data, legendContainer) {
+        // Create Pie Chart - Simple clean version
+        function createPieChart(pieEl, centerEl, data, legendContainer) {
             if (data.length === 0) {
-                mainEl.style.background = 'var(--bg-hover)';
-                sideEl.style.background = 'var(--bg-hover)';
-                bottomEl.style.background = 'var(--bg-hover)';
+                pieEl.style.background = 'var(--bg-hover)';
                 centerEl.textContent = '$0';
-                legendContainer.innerHTML = '<p style="color: var(--text-muted);">No data</p>';
+                legendContainer.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">No data available</p>';
                 return;
             }
 
@@ -1302,15 +1348,13 @@
             });
             
             gradient = gradient.slice(0, -2) + ')';
-            mainEl.style.background = gradient;
-            sideEl.style.background = gradient;
-            bottomEl.style.background = gradient;
+            pieEl.style.background = gradient;
             
             // Center total
             centerEl.textContent = formatCurrency(total);
             
-            // Legend
-            legendContainer.innerHTML = data.slice(0, 8).map((item, index) => `
+            // Legend - show ALL items
+            legendContainer.innerHTML = data.map((item, index) => `
                 <div class="legend-item">
                     <div class="legend-left">
                         <div class="legend-color" style="background: ${COLORS[index % COLORS.length]}"></div>
@@ -1349,25 +1393,33 @@
             }).join('');
         }
 
-        // Create Price vs Cost Chart
+        // Create Price vs Cost Chart - Fixed to show Avg Price/GT vs Total Cost/GT
         function createPriceCostChart(container, data) {
             if (data.length === 0) {
                 container.innerHTML = '<p style="color: var(--text-muted); padding: 20px; text-align: center;">No data available</p>';
                 return;
             }
 
+            // Find max for scaling bars
             const maxValue = Math.max(...data.flatMap(d => [d.avgPrice, d.totalCostPerGT]));
 
-            container.innerHTML = data.slice(0, 5).map(item => {
+            container.innerHTML = data.slice(0, 6).map(item => {
                 const priceWidth = maxValue > 0 ? (item.avgPrice / maxValue) * 100 : 0;
                 const costWidth = maxValue > 0 ? (item.totalCostPerGT / maxValue) * 100 : 0;
-                const spread = item.avgPrice - item.totalCostPerGT;
-                const spreadPct = item.avgPrice > 0 ? (spread / item.avgPrice) * 100 : 0;
-                const isProfit = spread >= 0;
+                
+                // Margin per GT = Price - Cost
+                const marginPerGT = item.avgPrice - item.totalCostPerGT;
+                const marginPct = item.avgPrice > 0 ? (marginPerGT / item.avgPrice) * 100 : 0;
+                const isPositive = marginPerGT >= 0;
 
                 return `
                     <div class="price-cost-item">
-                        <span class="price-cost-label">${item.name}</span>
+                        <div class="price-cost-header">
+                            <span class="price-cost-name">${item.name}</span>
+                            <span class="price-cost-margin ${isPositive ? 'positive' : 'negative'}">
+                                ${isPositive ? '+' : ''}${formatCurrencyExact(marginPerGT)}/GT (${marginPct.toFixed(1)}%)
+                            </span>
+                        </div>
                         <div class="price-cost-bars">
                             <div class="price-bar-row">
                                 <span class="price-bar-label">Sell Price</span>
@@ -1382,11 +1434,6 @@
                                     <div class="price-bar-fill cost" style="width: ${costWidth}%"></div>
                                 </div>
                                 <span class="price-bar-value">${formatCurrencyExact(item.totalCostPerGT)}</span>
-                            </div>
-                            <div class="margin-indicator">
-                                <span class="margin-badge ${isProfit ? 'positive' : 'negative'}">
-                                    ${isProfit ? '+' : ''}${formatCurrencyExact(spread)}/GT (${spreadPct.toFixed(1)}%)
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -1409,7 +1456,7 @@
         // Create data table with sorting
         function createTable(container, tableId, data, isCustomerTable = false) {
             if (data.length === 0) {
-                const colSpan = isCustomerTable ? 9 : 5;
+                const colSpan = isCustomerTable ? 9 : 6;
                 container.innerHTML = `<tr><td colspan="${colSpan}" style="text-align: center; color: var(--text-muted); padding: 30px;">No data available</td></tr>`;
                 return;
             }
@@ -1436,7 +1483,7 @@
                     const marginClass = item.margin >= 0 ? 'positive' : 'negative';
                     const profitClass = item.profit >= 0 ? 'positive' : 'negative';
                     const profitFormatted = item.profit < 0 
-                        ? `(${formatCurrency(Math.abs(item.profit)).replace('-', '')})` 
+                        ? `(${formatCurrency(Math.abs(item.profit))})` 
                         : formatCurrency(item.profit);
                     
                     return `
@@ -1450,7 +1497,7 @@
                             <td class="table-value">${formatCurrencyExact(item.avgPrice)}</td>
                             <td class="table-value">${formatCurrencyExact(item.variableCostPerGT)}</td>
                             <td class="table-value">${formatCurrencyExact(item.totalCostPerGT)}</td>
-                            <td class="table-value ${profitClass}" style="font-weight: 600;">${profitFormatted}</td>
+                            <td class="table-value ${profitClass}" style="font-weight: 700;">${profitFormatted}</td>
                             <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
                         </tr>
                     `;
@@ -1460,7 +1507,7 @@
                     const marginClass = item.margin >= 0 ? 'positive' : 'negative';
                     const profitClass = item.profit >= 0 ? 'positive' : 'negative';
                     const profitFormatted = item.profit < 0 
-                        ? `(${formatCurrency(Math.abs(item.profit)).replace('-', '')})` 
+                        ? `(${formatCurrency(Math.abs(item.profit))})` 
                         : formatCurrency(item.profit);
                     
                     return `
@@ -1470,7 +1517,8 @@
                             <td class="table-value">
                                 <span class="shipments-badge">${formatNumber(item.shipments)} GT</span>
                             </td>
-                            <td class="table-value ${profitClass}" style="font-weight: 600;">${profitFormatted}</td>
+                            <td class="table-value">${formatCurrencyExact(item.avgPrice)}</td>
+                            <td class="table-value ${profitClass}" style="font-weight: 700;">${profitFormatted}</td>
                             <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
                         </tr>
                     `;
@@ -1480,7 +1528,6 @@
 
         // Setup table sorting
         function setupTableSorting() {
-            // Product table sorting
             document.querySelectorAll('#productTableContainer th[data-sort]').forEach(th => {
                 th.addEventListener('click', () => {
                     const key = th.dataset.sort;
@@ -1494,7 +1541,6 @@
                 });
             });
 
-            // Customer table sorting
             document.querySelectorAll('#customerTableContainer th[data-sort]').forEach(th => {
                 th.addEventListener('click', () => {
                     const key = th.dataset.sort;
@@ -1552,9 +1598,9 @@
             let totalProfit = 0;
             
             data.forEach(row => {
-                totalRevenue += parseNumber(row['Revenue']);
-                totalShipments += parseNumber(row['Shipments (GT.)']);
-                totalProfit += parseNumber(row['Profit']);
+                totalRevenue += parseNumber(row['Revenue'] || 0);
+                totalShipments += parseNumber(row['Shipments (GT.)'] || row['Shipments'] || 0);
+                totalProfit += parseNumber(row['Profit'] || 0);
             });
             
             const avgMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
@@ -1587,23 +1633,22 @@
             const productData = aggregateData(data, 'Product');
             const customerData = aggregateData(data, 'Customer');
             
+            console.log('Product Data:', productData);
+            console.log('Customer Data:', customerData);
+            
             // Update performers
             updatePerformers(productData, customerData);
             
-            // Update 3D pie charts
-            create3DPieChart(
+            // Update pie charts
+            createPieChart(
                 document.getElementById('productPie'),
-                document.getElementById('productPieSide'),
-                document.getElementById('productPieBottom'),
                 document.getElementById('productTotal'),
                 productData,
                 document.getElementById('productLegend')
             );
             
-            create3DPieChart(
+            createPieChart(
                 document.getElementById('customerPie'),
-                document.getElementById('customerPieSide'),
-                document.getElementById('customerPieBottom'),
                 document.getElementById('customerTotal'),
                 customerData,
                 document.getElementById('customerLegend')
@@ -1627,17 +1672,23 @@
                 const csv = await response.text();
                 rawData = parseCSV(csv);
                 
+                console.log('Loaded rows:', rawData.length);
+                if (rawData.length > 0) {
+                    console.log('First row:', rawData[0]);
+                    console.log('Column names:', Object.keys(rawData[0]));
+                }
+                
                 setupTableSorting();
                 updatePeriodOptions();
                 updateDashboard();
             } catch (error) {
                 console.error('Error loading data:', error);
                 document.getElementById('metricsGrid').innerHTML = `
-                    <div class="metric-card full-width" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <p style="color: var(--accent-danger); font-size: 16px;">
+                    <div class="metric-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <p style="color: var(--accent-danger); font-size: 18px;">
                             Unable to load data. Please check the spreadsheet connection.
                         </p>
-                        <p style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">
+                        <p style="color: var(--text-muted); font-size: 15px; margin-top: 10px;">
                             Error: ${error.message}
                         </p>
                     </div>
