@@ -583,24 +583,28 @@
         .price-cost-chart {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .price-cost-item {
-            padding: 12px;
+            padding: 14px;
             border-radius: var(--radius-sm);
             transition: var(--transition);
+            border: 1px solid transparent;
         }
 
         .price-cost-item:hover {
             background: var(--bg-hover);
+            border-color: var(--border-color);
         }
 
         .price-cost-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .price-cost-name {
@@ -615,13 +619,20 @@
             transform: scale(1.02);
         }
 
+        .price-cost-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .price-cost-margin {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 4px;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .price-cost-item:hover .price-cost-margin {
@@ -638,10 +649,19 @@
             color: var(--accent-danger);
         }
 
+        .margin-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            display: block;
+            margin-bottom: 2px;
+        }
+
         .price-cost-bars {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .price-bar-row {
@@ -651,8 +671,8 @@
         }
 
         .price-bar-label {
-            width: 90px;
-            font-size: 13px;
+            width: 95px;
+            font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -666,7 +686,7 @@
 
         .price-bar-track {
             flex: 1;
-            height: 22px;
+            height: 20px;
             background: var(--bg-hover);
             border-radius: 4px;
             overflow: hidden;
@@ -682,15 +702,19 @@
             background: linear-gradient(90deg, var(--accent-primary), #14b8a6);
         }
 
+        .price-bar-fill.variable {
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+        }
+
         .price-bar-fill.cost {
             background: linear-gradient(90deg, var(--accent-secondary), #f59e0b);
         }
 
         .price-bar-value {
             font-family: 'Space Mono', monospace;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            width: 85px;
+            width: 80px;
             text-align: right;
             transition: var(--transition);
         }
@@ -1302,7 +1326,7 @@
             </div>
 
             <div class="card">
-                <h2 class="card-title">Price vs Cost per GT (All Customers)</h2>
+                <h2 class="card-title">Price vs Cost Analysis (per GT)</h2>
                 <div class="price-cost-chart" id="priceCostChart"></div>
             </div>
         </div>
@@ -1417,7 +1441,8 @@
 
         function formatCurrencyExact(value) {
             if (value === 0 || isNaN(value)) return '$0.00';
-            return '$' + Math.abs(value).toFixed(2);
+            const sign = value < 0 ? '-' : '';
+            return sign + '$' + Math.abs(value).toFixed(2);
         }
 
         function formatNumber(value) {
@@ -1617,29 +1642,44 @@
             }).join('');
         }
 
-        // Show ALL customers in Price vs Cost
+        // Show ALL customers in Price vs Cost with Variable Cost line
         function createPriceCostChart(container, data) {
             if (data.length === 0) {
                 container.innerHTML = '<p style="color: var(--text-muted); padding: 20px; text-align: center;">No data</p>';
                 return;
             }
-            const maxValue = Math.max(...data.flatMap(d => [d.avgPrice, d.totalCostPerGT]));
+            const maxValue = Math.max(...data.flatMap(d => [d.avgPrice, d.variableCostPerGT, d.totalCostPerGT]));
             
             // Show ALL customers
             container.innerHTML = data.map(item => {
                 const priceWidth = maxValue > 0 ? (item.avgPrice / maxValue) * 100 : 0;
+                const variableWidth = maxValue > 0 ? (item.variableCostPerGT / maxValue) * 100 : 0;
                 const costWidth = maxValue > 0 ? (item.totalCostPerGT / maxValue) * 100 : 0;
-                const marginPerGT = item.avgPrice - item.totalCostPerGT;
-                const marginPct = item.avgPrice > 0 ? (marginPerGT / item.avgPrice) * 100 : 0;
-                const isPositive = marginPerGT >= 0;
+                
+                // Contribution Margin = Sell Price - Variable Cost
+                const contributionMargin = item.avgPrice - item.variableCostPerGT;
+                const contributionPct = item.avgPrice > 0 ? (contributionMargin / item.avgPrice) * 100 : 0;
+                const isContributionPositive = contributionMargin >= 0;
+                
+                // Net Margin = Sell Price - Total Cost
+                const netMargin = item.avgPrice - item.totalCostPerGT;
+                const netPct = item.avgPrice > 0 ? (netMargin / item.avgPrice) * 100 : 0;
+                const isNetPositive = netMargin >= 0;
 
                 return `
                     <div class="price-cost-item">
                         <div class="price-cost-header">
                             <span class="price-cost-name">${item.name}</span>
-                            <span class="price-cost-margin ${isPositive ? 'positive' : 'negative'}">
-                                ${isPositive ? '+' : ''}${formatCurrencyExact(marginPerGT)}/GT (${marginPct.toFixed(1)}%)
-                            </span>
+                            <div class="price-cost-badges">
+                                <span class="price-cost-margin ${isContributionPositive ? 'positive' : 'negative'}">
+                                    <span class="margin-label">Contribution</span>
+                                    ${isContributionPositive ? '+' : ''}${formatCurrencyExact(contributionMargin)}/GT (${contributionPct.toFixed(1)}%)
+                                </span>
+                                <span class="price-cost-margin ${isNetPositive ? 'positive' : 'negative'}">
+                                    <span class="margin-label">Net Margin</span>
+                                    ${isNetPositive ? '+' : ''}${formatCurrencyExact(netMargin)}/GT (${netPct.toFixed(1)}%)
+                                </span>
+                            </div>
                         </div>
                         <div class="price-cost-bars">
                             <div class="price-bar-row">
@@ -1648,6 +1688,13 @@
                                     <div class="price-bar-fill price" style="width: ${priceWidth}%"></div>
                                 </div>
                                 <span class="price-bar-value">${formatCurrencyExact(item.avgPrice)}</span>
+                            </div>
+                            <div class="price-bar-row">
+                                <span class="price-bar-label">Variable Cost</span>
+                                <div class="price-bar-track">
+                                    <div class="price-bar-fill variable" style="width: ${variableWidth}%"></div>
+                                </div>
+                                <span class="price-bar-value">${formatCurrencyExact(item.variableCostPerGT)}</span>
                             </div>
                             <div class="price-bar-row">
                                 <span class="price-bar-label">Total Cost</span>
