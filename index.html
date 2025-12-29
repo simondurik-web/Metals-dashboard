@@ -1367,6 +1367,8 @@
                                 <th data-sort="avgPrice">Avg Price/GT <span class="sort-icon">↕</span></th>
                                 <th data-sort="variableCostPerGT">Variable Cost/GT <span class="sort-icon">↕</span></th>
                                 <th data-sort="totalCostPerGT">Total Cost/GT <span class="sort-icon">↕</span></th>
+                                <th data-sort="contributionPerGT">Contribution/GT <span class="sort-icon">↕</span></th>
+                                <th data-sort="netMarginPerGT">Net Margin/GT <span class="sort-icon">↕</span></th>
                                 <th data-sort="profit">Profit <span class="sort-icon">↕</span></th>
                                 <th data-sort="margin">Margin <span class="sort-icon">↕</span></th>
                             </tr>
@@ -1571,17 +1573,27 @@
             const totalRevenue = Object.values(aggregated).reduce((sum, item) => sum + item.revenue, 0);
             
             return Object.entries(aggregated)
-                .map(([name, d]) => ({
-                    name,
-                    revenue: d.revenue,
-                    pctOfTotal: totalRevenue > 0 ? (d.revenue / totalRevenue) * 100 : 0,
-                    shipments: d.shipments,
-                    avgPrice: d.shipments > 0 ? d.revenue / d.shipments : 0,
-                    variableCostPerGT: d.shipments > 0 ? d.variableCostWeighted / d.shipments : 0,
-                    totalCostPerGT: d.shipments > 0 ? d.totalCostWeighted / d.shipments : 0,
-                    profit: d.profit,
-                    margin: d.revenue > 0 ? (d.profit / d.revenue) * 100 : 0
-                }))
+                .map(([name, d]) => {
+                    const avgPrice = d.shipments > 0 ? d.revenue / d.shipments : 0;
+                    const variableCostPerGT = d.shipments > 0 ? d.variableCostWeighted / d.shipments : 0;
+                    const totalCostPerGT = d.shipments > 0 ? d.totalCostWeighted / d.shipments : 0;
+                    const contributionPerGT = avgPrice - variableCostPerGT;
+                    const netMarginPerGT = avgPrice - totalCostPerGT;
+                    
+                    return {
+                        name,
+                        revenue: d.revenue,
+                        pctOfTotal: totalRevenue > 0 ? (d.revenue / totalRevenue) * 100 : 0,
+                        shipments: d.shipments,
+                        avgPrice,
+                        variableCostPerGT,
+                        totalCostPerGT,
+                        contributionPerGT,
+                        netMarginPerGT,
+                        profit: d.profit,
+                        margin: d.revenue > 0 ? (d.profit / d.revenue) * 100 : 0
+                    };
+                })
                 .filter(item => item.revenue > 0)
                 .sort((a, b) => b.revenue - a.revenue);
         }
@@ -1722,7 +1734,7 @@
 
         function createTable(container, tableId, data, isCustomerTable = false) {
             if (data.length === 0) {
-                const colSpan = isCustomerTable ? 9 : 6;
+                const colSpan = isCustomerTable ? 11 : 6;
                 container.innerHTML = `<tr><td colspan="${colSpan}" style="text-align: center; color: var(--text-muted); padding: 30px;">No data</td></tr>`;
                 return;
             }
@@ -1745,9 +1757,17 @@
                 container.innerHTML = sortedData.map(item => {
                     const marginClass = item.margin >= 0 ? 'positive' : 'negative';
                     const profitClass = item.profit >= 0 ? 'positive' : 'negative';
+                    const contributionClass = item.contributionPerGT >= 0 ? 'positive' : 'negative';
+                    const netMarginClass = item.netMarginPerGT >= 0 ? 'positive' : 'negative';
                     const profitFormatted = item.profit < 0 
                         ? `(${formatCurrency(Math.abs(item.profit))})` 
                         : formatCurrency(item.profit);
+                    const contributionFormatted = item.contributionPerGT < 0
+                        ? `-${formatCurrencyExact(Math.abs(item.contributionPerGT))}`
+                        : `+${formatCurrencyExact(item.contributionPerGT)}`;
+                    const netMarginFormatted = item.netMarginPerGT < 0
+                        ? `-${formatCurrencyExact(Math.abs(item.netMarginPerGT))}`
+                        : `+${formatCurrencyExact(item.netMarginPerGT)}`;
                     return `
                         <tr>
                             <td class="table-name">${item.name}</td>
@@ -1757,6 +1777,8 @@
                             <td class="table-value">${formatCurrencyExact(item.avgPrice)}</td>
                             <td class="table-value">${formatCurrencyExact(item.variableCostPerGT)}</td>
                             <td class="table-value">${formatCurrencyExact(item.totalCostPerGT)}</td>
+                            <td class="table-value ${contributionClass}" style="font-weight: 600;">${contributionFormatted}</td>
+                            <td class="table-value ${netMarginClass}" style="font-weight: 600;">${netMarginFormatted}</td>
                             <td class="table-value ${profitClass}" style="font-weight: 700;">${profitFormatted}</td>
                             <td class="table-value ${marginClass}">${item.margin.toFixed(1)}%</td>
                         </tr>
